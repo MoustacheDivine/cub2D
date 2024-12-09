@@ -5,127 +5,156 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/09 13:44:32 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/09 15:32:19 by tle-dref         ###   ########.fr       */
+/*   Created: 2024/12/09 16:48:53 by tle-dref          #+#    #+#             */
+/*   Updated: 2024/12/10 00:44:30 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static int	isespace(char c)
-{
-	if (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f'
-		|| c == '\r')
-		return (1);
-	return (0);
-}
-
-static void	parse_texture(char *line, t_game *game, char c)
-{
-	char	*path;
-
-	path = ft_strtrim(line + 2, " ");
-	if (c == 'N')
-	{
-		game->textures.n = mlx_load_png(path);
-	}
-	else if (c == 'S')
-	{
-		game->textures.s = mlx_load_png(path);
-	}
-	else if (c == 'W')
-	{
-		game->textures.w = mlx_load_png(path);
-	}
-	else if (c == 'E')
-	{
-		game->textures.e = mlx_load_png(path);
-	}
-	free(path);
-}
-
-static void	parse_color(char *line, t_game *game, char c)
+void	parse_color(char *line, t_game *game, char c)
 {
 	char	**colors;
-	char	*tmp;
-	int		i;
+	long	r;
+	long	g;
+	long	b;
 
-	i = -1;
-	tmp = ft_strtrim(line + 2, " ");
-	colors = ft_split(tmp + 2, ',');
+	colors = ft_split(clean_line(line), ',');
+	r = ft_atoi_scam(colors[0]);
+	g = ft_atoi_scam(colors[1]);
+	b = ft_atoi_scam(colors[2]);
+	if (r == ERROR_VALUE || g == ERROR_VALUE || b == ERROR_VALUE)
+		(printf("Error\nInvalid color\n"), exit(1));
 	if (c == 'F')
 	{
-		game->floor.r = ft_atoi(colors[0]);
-		game->floor.g = ft_atoi(colors[1]);
-		game->floor.b = ft_atoi(colors[2]);
+		game->floor.r = r;
+		game->floor.g = g;
+		game->floor.b = b;
 	}
 	else if (c == 'C')
 	{
-		game->ceiling.r = ft_atoi(colors[0]);
-		game->ceiling.g = ft_atoi(colors[1]);
-		game->ceiling.b = ft_atoi(colors[2]);
+		game->ceiling.r = r;
+		game->ceiling.g = g;
+		game->ceiling.b = b;
 	}
-	while (colors[++i])
-		free(colors);
-	free(colors);
-	free(tmp);
 }
 
-static void	parse_map(char *line, t_game *game, int fd)
+void	load_texture(t_game *game, char *path, char c)
 {
-	char	**map;
-	int		count;
-	int		i;
-	char	*tmp;
+	void	*texture;
 
-	i = 0;
-	count = 0;
-	tmp = line;
-	while ((tmp = get_next_line(fd)) != NULL)
+	texture = mlx_load_png(path);
+	if (!texture)
+		(printf("Error\nFailed to load texture\n"), free(path), exit(1));
+	if (c == 'N')
 	{
+		check_double(game, c);
+		game->textures.n = texture;
+	}
+	else if (c == 'S')
+	{
+		check_double(game, c);
+		game->textures.s = texture;
+	}
+	else if (c == 'W')
+	{
+		check_double(game, c);
+		game->textures.w = texture;
+	}
+	else if (c == 'E')
+	{
+		check_double(game, c);
+		game->textures.e = texture;
+	}
+}
+
+void	parse_texture(char *line, t_game *game, char c)
+{
+	char	*path;
+
+	path = clean_line(line);
+	load_texture(game, path, c);
+	free(path);
+}
+
+void	parse_map_loop(int fd, t_game *game, char *line, char *file)
+{
+	char		**map;
+	static int	i = 0;
+	int			count;
+	char		*tmp;
+
+	count = get_map_len(line, fd, file);
+	map = malloc(sizeof(char *) * (count + 1));
+	line = get_next_line(fd);
+	while (line)
+	{
+		tmp = ft_strtrim(line, " ");
+		if (ft_strncmp(tmp, "1", 1) == 0 || ft_strncmp(tmp, "0", 1) == 0)
+			break ;
 		free(tmp);
-		count++;
+		line = get_next_line(fd);
 	}
 	free(tmp);
-	map = malloc(sizeof(char *) * (count + 1));
-	while ((line = get_next_line(fd)) != NULL)
+	while (count > 0)
 	{
-		map[i] = ft_strdup(line);
-		i++;
+		map[i++] = ft_strdup(line);
 		free(line);
+		line = get_next_line(fd);
+		count--;
 	}
 	map[i] = NULL;
 	game->map = map;
-}
-
-int	parsing(int fd, t_game *game)
-{
-	char *line;
-
-	line = get_next_line(fd);
-	printf("line: %s\n", line);
-	while (line != NULL)
+	while (line)
 	{
-		printf("line: %s\n", line);
-		while (isespace(*line))
-			line++;
-		if (ft_strncmp(line, "NO ", 3) == 0)
-			parse_texture(line, game, 'N');
-		else if (ft_strncmp(line, "SO ", 3) == 0)
-			parse_texture(line, game, 'S');
-		else if (ft_strncmp(line, "WE ", 3) == 0)
-			parse_texture(line, game, 'W');
-		else if (ft_strncmp(line, "EA ", 3) == 0)
-			parse_texture(line, game, 'E');
-		else if (ft_strncmp(line, "F ", 2) == 0)
-			parse_color(line, game, 'F');
-		else if (ft_strncmp(line, "C ", 2) == 0)
-			parse_color(line, game, 'C');
-		else if (ft_strncmp(line, "1 ", 2) == 0)
-			parse_map(line, game, fd);
+		if (line[0] != '1' && line[0] != ' '
+			&& line[0] != '0' && line[0] != '\n')
+		{
+			printf("Error\nmap not at the end\n");
+			free_map(game->map);
+			exit(1);
+		}
 		free(line);
 		line = get_next_line(fd);
 	}
-	free(line);
+}
+
+void check_all(t_game *game)
+{
+	char **cpy;
+
+	check_end(game);
+	check_all_data(game);
+	get_player_pos(game);
+	cpy = cpy_map(game);
+	validate_map_chars(game);
+	validate_flood_fill(cpy, game->player.x, game->player.y);
+	free_map(cpy);
+	get_player_dir(game);
+}
+
+int	parsing(char *map, t_game *game)
+{
+	char	*line;
+	char	*tmp;
+	int		fd;
+
+	fd = open(map, O_RDONLY);
+	line = get_next_line(fd);
+	while (line)
+	{
+		tmp = ft_strtrim(line, " ");
+		if (!cmp_line(tmp, game))
+			;
+		else if (ft_strncmp(tmp, "1", 1) == 0 || ft_strncmp(tmp, "0", 1) == 0)
+		{
+			parse_map_loop(fd, game, line, map);
+			break ;
+		}
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+	check_all(game);
 	return (0);
 }

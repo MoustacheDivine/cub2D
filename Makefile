@@ -20,6 +20,8 @@ OBJDIR = obj
 # Récupération des fichiers sources
 SRC = main.c \
 		parsing.c \
+		utils.c \
+		utils2.c \
 
 # Chemin complet pour les fichiers objets dans obj/
 OBJ = $(addprefix $(OBJDIR)/, $(SRC:.c=.o))
