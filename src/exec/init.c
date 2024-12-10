@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 02:35:28 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/10 10:19:55 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/10 14:22:44 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ void	init_map(t_game *game)
 
 void	init_textures(t_game *game)
 {
-	game->textures.n = mlx_load_png("textures/north.png");
-	game->textures.s = mlx_load_png("textures/south.png");
-	game->textures.w = mlx_load_png("textures/west.png");
-	game->textures.e = mlx_load_png("textures/east.png");
-	game->ceiling.r = 255;
-	game->ceiling.g = 0;
-	game->ceiling.b = 0;
+	game->textures.n = mlx_load_png("textures/maxborde.png");
+	game->textures.s = mlx_load_png("textures/albillie.png");
+	game->textures.w = mlx_load_png("textures/gletilly.png");
+	game->textures.e = mlx_load_png("textures/lgalloux.png");
+	game->ceiling.r = 173;
+	game->ceiling.g = 216;
+	game->ceiling.b = 230;
 	game->floor.r = 120;
 	game->floor.g = 120;
 	game->floor.b = 120;

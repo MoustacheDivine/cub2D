@@ -1,4 +1,3 @@
-#-----------------------Flags_and_Name---------------------
 NAME	=	cub3D
 CC		=	cc
 CFLAGS	=	-Wall -Wextra -Werror -Iinc -Ilibft/inc -IMLX42/include -g
@@ -6,20 +5,24 @@ CREAD	=	-lreadline -lncursesw
 LIB			=	libft
 LIBFT		=	$(LIB)/libft.a
 MLX			=	MLX42
-LIBMLX	 =	$(MLX)/build/libmlx42.a
+LIBMLX		=	$(MLX)/build/libmlx42.a
 LIBS = $(LIBFT) $(LIBMLX) -lglfw -pthread -lm
 
 #------------------------Source-----------------------------
 
 # Sources and objects
-FILES = main init render draw raycasting moves player walls colors
+EXECDIR		=	src/exec
+PARSDIR		=	src/parsing
+OBJDIR		=	obj
 
-SRCS = $(addprefix src/, $(addsuffix .c, $(FILES)))
-OBJS = $(addprefix obj/, $(addsuffix .o, $(FILES)))
+EXEC = main init render raycasting moves player walls draw colors
+PARS = parsing utils utils2
+
+SRCS		=	$(addprefix $(EXECDIR)/, $(addsuffix .c, $(EXEC))) \
+				$(addprefix $(PARSDIR)/, $(addsuffix .c, $(PARS)))
+OBJS		=	$(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.o)))
 
 #------------------------Rules------------------------------
-#VALGRIND_SUPP = valgrind.supp
-
 all: $(LIBFT) $(LIBMLX) $(NAME)
 
 obj:
@@ -39,18 +42,16 @@ $(LIBMLX):
 	@cmake --build $(MLX)/build
 
 .c.o:
-	$(CC) $(CFLAGS) -c $< -o $<:.c=.o) $(CREAD) $(LIBS)
+	$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): obj ${OBJS}
-	@$(call generate_random_color, $(CC) $(CFLAGS) -o $@ $(OBJS))
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(CREAD) $(LIBS)
+obj/%.o: src/exec/%.c | obj
+	$(CC) $(CFLAGS) -c $< -o $@
 
-obj/%.o: src/%.c
-	@$(call generate_random_color, $(CC) $(CFLAGS) -c $< -o $@)
-	@$(CC) $(CFLAGS) -c $< -o $@
+obj/%.o: src/parsing/%.c | obj
+	$(CC) $(CFLAGS) -c $< -o $@
 
-valgrind: $(NAME)
-	valgrind --show-leak-kinds=all --leak-check=full --track-origins=yes --track-fds=yes --trace-children=yes --suppressions=mlx42.supp ./$(NAME)
+$(NAME): obj $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(CREAD) $(LIBS)
 
 clean:
 	@$(MAKE) --quiet -C $(LIB) clean
@@ -64,4 +65,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re valgrind
+.PHONY: all clean fclean re

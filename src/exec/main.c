@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:59:47 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/10 10:48:50 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/10 13:57:39 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ void	clean_game(t_game *game)
 	exit(0);
 }
 
-void	key_hook(mlx_key_data_t keydata, void *param)
+void	key_hook(void *param)
 {
 	t_game	*game;
 
 	game = (t_game *)param;
-	if (keydata.key == MLX_KEY_ESCAPE)
+	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 		clean_game(game);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
 		move_forward(game);
@@ -52,7 +52,7 @@ int	main(void)
 	game = malloc(sizeof(t_game));
 	game = init_game();
 	render(game);
-	mlx_key_hook(game->mlx, key_hook, game);
+	mlx_loop_hook(game->mlx, key_hook, game);
 	mlx_loop(game->mlx);
 	return (0);
 }
