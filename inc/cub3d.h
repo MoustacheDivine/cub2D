@@ -6,7 +6,7 @@
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 17:04:52 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/10 14:24:55 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/10 19:01:15 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,18 @@
 
 typedef struct s_ray
 {
-	double camera_x;    // Position du rayon sur le plan caméra (de -1 à 1)
-	double dir_x;       // Direction X du rayon (calculée pour chaque colonne)
-	double dir_y;       // Direction Y du rayon (calculée pour chaque colonne)
-	int map_x;         
-		// Coordonnée X de la grille sur laquelle le rayon est actuellement
-	int map_y;         
-		// Coordonnée Y de la grille sur laquelle le rayon est actuellement
-	int step_x;         // Direction à suivre en X (+1 ou -1)
-	int step_y;         // Direction à suivre en Y (+1 ou -1)
-	double sidedist_x;  // Distance du point de départ au premier côté vertical
-	double sidedist_y; 
-		// Distance du point de départ au premier côté horizontal
+	double camera_x; // Position du rayon sur le plan caméra (de -1 à 1)
+	double dir_x;    // Direction X du rayon (calculée pour chaque colonne)
+	double dir_y;    // Direction Y du rayon (calculée pour chaque colonne)
+	int				map_x;
+	// Coordonnée X de la grille sur laquelle le rayon est actuellement
+	int				map_y;
+	// Coordonnée Y de la grille sur laquelle le rayon est actuellement
+	int step_x;        // Direction à suivre en X (+1 ou -1)
+	int step_y;        // Direction à suivre en Y (+1 ou -1)
+	double sidedist_x; // Distance du point de départ au premier côté vertical
+	double			sidedist_y;
+	// Distance du point de départ au premier côté horizontal
 	double deltadist_x; // Distance entre deux côtés verticaux de la grille
 	double deltadist_y; // Distance entre deux côtés horizontaux de la grille
 	double wall_dist;   // Distance perpendiculaire du joueur au mur touché
@@ -56,9 +56,9 @@ typedef struct s_player
 
 typedef struct s_color
 {
-	int				r;
-	int				g;
-	int				b;
+	long			r;
+	long			g;
+	long			b;
 }					t_color;
 
 typedef struct s_textures
@@ -139,14 +139,15 @@ long				ft_atoi_scam(const char *str);
 int					cmp_line(char *tmp, t_game *game);
 char				*clean_line(char *line);
 void				check_double(t_game *game, char c);
-
-// utils2
 int					get_map_len(char *line, int fd, char *file);
-void				check_end(t_game *game);
+void				check_end(t_game *game, char *line, int fd);
 void				check_all_data(t_game *game);
 void				get_player_pos(t_game *game);
 char				**cpy_map(t_game *game);
 void				validate_flood_fill(char **map, int x, int y);
 void				free_map(char **map);
 void				validate_map_chars(t_game *game);
-void				get_player_dir(t_game *game);
+void				load_texture(t_game *game, char *path, char c);
+void				get_back_to_map(char *line, int fd);
+int					isvalidchar(char c);
+int					ft_tablen(char **tab);

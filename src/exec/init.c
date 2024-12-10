@@ -6,7 +6,7 @@
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 02:35:28 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/10 14:22:44 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/10 17:27:28 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,14 @@ void	init_map(t_game *game)
 	game->map[i] = NULL;
 }
 
-void	init_textures(t_game *game)
+void	init_colors(t_game *game)
 {
-	game->textures.n = mlx_load_png("textures/maxborde.png");
-	game->textures.s = mlx_load_png("textures/albillie.png");
-	game->textures.w = mlx_load_png("textures/gletilly.png");
-	game->textures.e = mlx_load_png("textures/lgalloux.png");
-	game->ceiling.r = 173;
-	game->ceiling.g = 216;
-	game->ceiling.b = 230;
-	game->floor.r = 120;
-	game->floor.g = 120;
-	game->floor.b = 120;
+	game->ceiling.r = -1;
+	game->ceiling.g = -1;
+	game->ceiling.b = -1;
+	game->floor.r = -1;
+	game->floor.g = -1;
+	game->floor.b = -1;
 }
 
 void		init_player(t_game *game)
@@ -111,8 +107,9 @@ t_game	*init_game(void)
 
 	game = malloc(sizeof(t_game));
 	init_window(game);
-	init_map(game);
-	init_textures(game);
+	// init_map(game);
+	init_colors(game);
+	parsing("./map.cub", game);
 	init_player(game);
 	init_ray(game);
 	return (game);

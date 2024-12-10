@@ -6,7 +6,7 @@
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:59:47 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/10 13:57:39 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/10 14:47:10 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	key_hook(void *param)
 	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
 		move_right(game);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
-		rotate_player(game, ROTA_SPEED);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
 		rotate_player(game, -ROTA_SPEED);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
+		rotate_player(game, ROTA_SPEED);
 }
 
 int	main(void)
