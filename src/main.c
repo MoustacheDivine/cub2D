@@ -6,16 +6,11 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:59:47 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/10 08:14:46 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/10 10:48:50 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int	create_rgb(unsigned char r, unsigned char g, unsigned char b)
-{
-	return ((r << 24) | (g << 16) | (b << 8) | 255);
-}
 
 void	clean_game(t_game *game)
 {

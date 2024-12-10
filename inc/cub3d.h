@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 17:04:52 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/10 09:45:55 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/10 10:55:48 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,15 @@ typedef struct s_textures
 	mlx_texture_t	*e;
 }					t_textures;
 
+typedef struct s_wall
+{
+	int		wall_height;  // Hauteur du mur en pixels
+	int		start_y;      // Coordonnée Y de début du mur
+	int		end_y;        // Coordonnée Y de fin du mur
+	double	tex_pos;      // Position verticale actuelle dans la texture
+	double	step;         // Taille du pas entre les pixels dans la texture
+}				t_wall;
+
 typedef struct s_game
 {
 	mlx_t			*mlx;
@@ -79,8 +88,9 @@ typedef struct s_game
 // init.c
 t_game				*init_game(void);
 
-// main.c
+// colors.c
 int					create_rgb(unsigned char r, unsigned char g, unsigned char b);
+uint32_t	get_texture_pixel(mlx_texture_t *texture, int tex_x, int tex_y);
 
 // player.c
 void	player_N(t_game *game);
@@ -103,7 +113,9 @@ void	render(void *param);
 void	draw_game(t_game *game);
 
 // raycasting.c
-void	draw_wall_column(t_game *game, int x);
 void	perform_dda(t_game *game);
 void	init_dda(t_ray *ray, t_player *player);
 void	calculate_ray_properties(t_game *game, int x);
+
+// walls.c
+void	draw_wall_column(t_game *game, int x);

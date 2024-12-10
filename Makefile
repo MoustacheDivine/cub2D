@@ -12,7 +12,7 @@ LIBS = $(LIBFT) $(LIBMLX) -lglfw -pthread -lm
 #------------------------Source-----------------------------
 
 # Sources and objects
-FILES = main init render draw raycasting moves player
+FILES = main init render draw raycasting moves player walls colors
 
 SRCS = $(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJS = $(addprefix obj/, $(addsuffix .o, $(FILES)))

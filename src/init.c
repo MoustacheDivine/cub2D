@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 02:35:28 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/10 09:45:41 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/10 10:19:55 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ void	init_map(t_game *game)
 
 void	init_textures(t_game *game)
 {
+	game->textures.n = mlx_load_png("textures/north.png");
+	game->textures.s = mlx_load_png("textures/south.png");
+	game->textures.w = mlx_load_png("textures/west.png");
+	game->textures.e = mlx_load_png("textures/east.png");
 	game->ceiling.r = 255;
 	game->ceiling.g = 0;
 	game->ceiling.b = 0;
