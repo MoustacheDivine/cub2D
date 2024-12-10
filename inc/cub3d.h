@@ -6,7 +6,7 @@
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 17:04:52 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/10 19:01:15 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/10 21:07:20 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,12 @@ typedef struct s_wall
 typedef struct s_game
 {
 	mlx_t			*mlx;
+	mlx_image_t		*minimap;
 	mlx_image_t		*img;
 	char			**map;
+	int				map_width;
+	int				map_height;
+	double			last_time;
 	t_color			floor;
 	t_color			ceiling;
 	t_textures		textures;
@@ -151,3 +155,6 @@ void				load_texture(t_game *game, char *path, char c);
 void				get_back_to_map(char *line, int fd);
 int					isvalidchar(char c);
 int					ft_tablen(char **tab);
+
+//minimap
+void	draw_minimap(t_game *game);

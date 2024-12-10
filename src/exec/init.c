@@ -6,7 +6,7 @@
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 02:35:28 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/10 17:27:28 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/10 20:45:44 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,6 @@ void	init_window(t_game *game)
 		free(game);
 		exit(1);
 	}
-}
-
-void	init_map(t_game *game)
-{
-	int		i;
-	char	*map[] = {"11111111111", "1E000010001", "10000010001",
-			"10000010001", "10000000001", "11111111111", NULL};
-
-	i = 0;
-	game->map = malloc(sizeof(char *) * 7);
-	while (map[i])
-	{
-		game->map[i] = ft_strdup(map[i]);
-		i++;
-	}
-	game->map[i] = NULL;
 }
 
 void	init_colors(t_game *game)

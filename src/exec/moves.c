@@ -6,7 +6,7 @@
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 04:47:38 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/10 14:47:00 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/10 20:32:37 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	move_forward(t_game *game)
 		game->player.y = new_y;
 	if (game->map[(int)game->player.y][(int)new_x] != '1')
 		game->player.x = new_x;
-	render(game);
 }
 
 void	move_backward(t_game *game)
@@ -37,7 +36,6 @@ void	move_backward(t_game *game)
 		game->player.y = new_y;
 	if (game->map[(int)game->player.y][(int)new_x] != '1')
 		game->player.x = new_x;
-	render(game);
 }
 
 void	move_left(t_game *game)
@@ -51,7 +49,6 @@ void	move_left(t_game *game)
 		game->player.y = new_y;
 	if (game->map[(int)game->player.y][(int)new_x] != '1')
 		game->player.x = new_x;
-	render(game);
 }
 
 void	move_right(t_game *game)
@@ -65,7 +62,6 @@ void	move_right(t_game *game)
 		game->player.y = new_y;
 	if (game->map[(int)game->player.y][(int)new_x] != '1')
 		game->player.x = new_x;
-	render(game);
 }
 
 void	rotate_player(t_game *game, double rotation_speed)
@@ -80,5 +76,4 @@ void	rotate_player(t_game *game, double rotation_speed)
 		- game->player.plane_y * sin(rotation_speed);
 	game->player.plane_y = old_plane_x * sin(rotation_speed)
 		+ game->player.plane_y * cos(rotation_speed);
-	render(game);
 }

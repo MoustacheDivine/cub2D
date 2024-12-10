@@ -6,7 +6,7 @@
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:48:53 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/10 18:57:57 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/10 19:55:03 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,24 @@ void	parse_texture(char *line, t_game *game, char c)
 	free(path);
 }
 
+void get_map_dimension(t_game *game)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (game->map[i])
+	{
+		j = 0;
+		while (game->map[i][j])
+			j++;
+		if (j > game->map_width)
+			game->map_width = j;
+		i++;
+	}
+	game->map_height = i;
+}
+
 void	check_all(t_game *game)
 {
 	char	**cpy;
@@ -64,6 +82,7 @@ void	check_all(t_game *game)
 	cpy = cpy_map(game);
 	validate_map_chars(game);
 	validate_flood_fill(cpy, game->player.x, game->player.y);
+	get_map_dimension(game);
 	free_map(cpy);
 }
 
