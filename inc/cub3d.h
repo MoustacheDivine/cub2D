@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 17:04:52 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/10 08:15:55 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/10 09:45:55 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ typedef struct s_game
 {
 	mlx_t			*mlx;
 	mlx_image_t		*img;
-	int				width;
-	int				height;
 	char			**map;
 	t_color			floor;
 	t_color			ceiling;

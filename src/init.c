@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 02:35:28 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/10 07:49:29 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/10 09:45:41 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ void	init_window(t_game *game)
 		free(game);
 		exit(1);
 	}
-	game->width = WIDTH;
-	game->height = HEIGHT;
 }
 
 void	init_map(t_game *game)
