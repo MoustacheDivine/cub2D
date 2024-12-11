@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 06:26:33 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/10 08:18:54 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/11 15:26:18 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,26 @@ void	perform_dda(t_game *game)
 		}
 		// Vérifier si on a touché un mur ou une porte
 		if (game->map[game->ray.map_y][game->ray.map_x] == '1')
-			hit = 1;
-		else if (game->map[game->ray.map_y][game->ray.map_x] == 'D')
-			// Pour les portes
 		{
+			game->ray.wall_door = 0;
 			hit = 1;
-			game->ray.wall_door = 1;
+		}
+		else if (game->map[game->ray.map_y][game->ray.map_x] == 'D'
+			|| game->map[game->ray.map_y][game->ray.map_x] == 'O')
+		// Pour les portes
+		{
+			if (game->map[game->ray.map_y][game->ray.map_x] == 'D')
+			{
+				game->ray.wall_door = 1;
+				game->ray.door_open = 0;
+				hit = 1;
+			}
+			else
+			{
+				game->ray.wall_door = 0;
+				game->ray.door_open = 1;
+				hit = 0;
+			}
 		}
 	}
 	// Calcul de la distance perpendiculaire pour éviter les distorsions
@@ -91,4 +105,3 @@ void	perform_dda(t_game *game)
 		game->ray.wall_dist = (game->ray.map_y - game->player.y + (1
 					- game->ray.step_y) / 2) / game->ray.dir_y;
 }
-

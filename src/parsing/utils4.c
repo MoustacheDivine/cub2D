@@ -6,7 +6,7 @@
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 18:51:07 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/10 19:53:30 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/11 14:17:03 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void	get_back_to_map(char *line, int fd)
 
 	while (line)
 	{
-		tmp = ft_strtrim(line, " ");
+		tmp = ft_strtrim(ft_strdup(line), " ");
+		printf("tmp %s\n", tmp);
 		if (ft_strncmp(tmp, "1", 1) == 0 || ft_strncmp(tmp, "0", 1) == 0)
 			return ;
 		free(tmp);
@@ -85,6 +86,7 @@ void	parse_map_loop(int fd, t_game *game, char *line, char *file)
 	get_back_to_map(line, fd);
 	while (count > 0)
 	{
+		printf("line %s\n", line);
 		map[i++] = ft_strdup(line);
 		free(line);
 		line = get_next_line(fd);

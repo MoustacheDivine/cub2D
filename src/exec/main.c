@@ -6,7 +6,7 @@
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:59:47 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/10 21:15:31 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/11 15:39:16 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,47 @@ void	mouse_hook(double xpos, double ypos, void *param)
 	mlx_set_mouse_pos(game->mlx, WIDTH / 2, HEIGHT / 2);
 }
 
-int	main(void)
+void	door_hook(mlx_key_data_t keydata, void *param)
+{
+	int		target_x;
+	int		target_y;
+	t_game	*game;
+
+	game = param;
+	if (keydata.action == MLX_PRESS)
+	{
+		if (keydata.key == MLX_KEY_SPACE)
+		{
+			target_x = (int)(game->player.x + game->player.dir_x);
+			target_y = (int)(game->player.y + game->player.dir_y);
+			if (game->map[target_y][target_x] == 'D')
+			{
+				game->map[target_y][target_x] = 'O';
+			}
+			else if (game->map[target_y][target_x] == 'O')
+			{
+				game->map[target_y][target_x] = 'D';
+			}
+		}
+	}
+}
+
+int	main(int ac, char **av)
 {
 	t_game	*game;
 
+	if (ac != 2)
+	{
+		ft_putstr_fd("Error\nInvalid number of arguments\n", 2);
+		return (1);
+	}
 	game = malloc(sizeof(t_game));
-	game = init_game();
+	game = init_game(av[1]);
 	render(game);
 	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_DISABLED);
 	mlx_set_mouse_pos(game->mlx, WIDTH / 2, HEIGHT / 2);
 	mlx_cursor_hook(game->mlx, &mouse_hook, game);
+	mlx_key_hook(game->mlx, door_hook, game);
 	mlx_loop_hook(game->mlx, key_hook, game);
 	mlx_loop(game->mlx);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 18:31:25 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/10 19:26:38 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/11 14:20:40 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	isvalidchar(char c)
 {
 	return (c == ' ' || c == '1' || c == '0' || c == 'N' || c == 'S' || c == 'W'
-		|| c == 'E' || c == '2');
+		|| c == 'E' || c == 'D');
 }
 
 int	cmp_line(char *tmp, t_game *game)

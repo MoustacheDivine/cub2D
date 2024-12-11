@@ -6,7 +6,7 @@
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 17:04:52 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/10 21:07:20 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/11 14:58:03 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_ray
 	double wall_dist;   // Distance perpendiculaire du joueur au mur touché
 	int side;           // Indique quel côté du mur a été touché
 	int				wall_door;
+	int				door_open;
 }					t_ray;
 
 typedef struct s_player
@@ -67,6 +68,7 @@ typedef struct s_textures
 	mlx_texture_t	*s;
 	mlx_texture_t	*w;
 	mlx_texture_t	*e;
+	mlx_texture_t	*door;
 }					t_textures;
 
 typedef struct s_wall
@@ -95,7 +97,7 @@ typedef struct s_game
 }					t_game;
 
 // init.c
-t_game				*init_game(void);
+t_game				*init_game(char *path);
 
 // colors.c
 int					create_rgb(unsigned char r, unsigned char g,
@@ -158,3 +160,6 @@ int					ft_tablen(char **tab);
 
 //minimap
 void	draw_minimap(t_game *game);
+
+
+void displaymap(t_game *game);

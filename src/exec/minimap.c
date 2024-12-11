@@ -6,7 +6,7 @@
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 19:45:58 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/10 20:40:44 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/11 14:34:54 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,10 @@ void	draw_minimap(t_game *game)
 			py = map_y * 5;
 			if (game->map[map_y][map_x] == '1')
 				color = create_rgb(100, 100, 100);
+			else if (game->map[map_y][map_x] == 'D')
+				color = create_rgb(255, 110, 50);
+			else if (game->map[map_y][map_x] == 'O')
+				color = create_rgb(0, 250, 0);
 			else if (game->map[map_y][map_x] == '0')
 				color = create_rgb(200, 200, 200);
 			else

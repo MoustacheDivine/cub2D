@@ -6,7 +6,7 @@
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 02:35:28 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/10 20:45:44 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/11 14:24:27 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	init_ray(t_game *game)
 	game->ray.wall_door = 0;
 }
 
-t_game	*init_game(void)
+t_game	*init_game(char *path)
 {
 	t_game	*game;
 
@@ -93,8 +93,15 @@ t_game	*init_game(void)
 	init_window(game);
 	// init_map(game);
 	init_colors(game);
-	parsing("./map.cub", game);
+	parsing(path, game);
 	init_player(game);
 	init_ray(game);
+	game->textures.door = mlx_load_png("textures/door.png");
+	if (!game->textures.door)
+	{
+		mlx_terminate(game->mlx);
+		free(game);
+		exit(1);
+	}
 	return (game);
 }

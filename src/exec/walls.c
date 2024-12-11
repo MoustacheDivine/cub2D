@@ -6,7 +6,7 @@
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 10:36:24 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/10 14:10:33 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/11 14:45:02 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ void	initialize_texture_mapping(mlx_texture_t *texture, t_wall *wall)
 
 mlx_texture_t	*select_wall_texture(t_game *game)
 {
-	if (game->ray.side == 0)
+	if (game->ray.wall_door == 1)
+		return (game->textures.door);
+	else if (game->ray.side == 0)
 	{
 		if (game->ray.dir_x > 0)
 			return (game->textures.e);

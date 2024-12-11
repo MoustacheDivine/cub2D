@@ -6,7 +6,7 @@
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:48:53 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/10 19:55:03 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/11 13:15:29 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,18 @@ void get_map_dimension(t_game *game)
 	game->map_height = i;
 }
 
+void displaymap(char **map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i])
+	{
+		printf("%s\n", map[i]);
+		i++;
+	}
+}
+
 void	check_all(t_game *game)
 {
 	char	**cpy;
@@ -81,6 +93,7 @@ void	check_all(t_game *game)
 	get_player_pos(game);
 	cpy = cpy_map(game);
 	validate_map_chars(game);
+	displaymap(cpy);
 	validate_flood_fill(cpy, game->player.x, game->player.y);
 	get_map_dimension(game);
 	free_map(cpy);
