@@ -6,7 +6,7 @@
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 17:04:52 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/11 14:58:03 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/11 21:22:51 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@
 #include <math.h>
 
 #define ERROR_VALUE 2147483648
-#define WIDTH 1280
-#define HEIGHT 720
+#define WIDTH 800
+#define HEIGHT 600
 #define MOVE_SPEED 0.08
 #define ROTA_SPEED 0.05
 #define T_WIDTH 256
+#define NUM_FRAMES 145
 
 typedef struct s_ray
 {
@@ -94,6 +95,10 @@ typedef struct s_game
 	t_textures		textures;
 	t_player		player;
 	t_ray			ray;
+	mlx_texture_t *particle_frames[NUM_FRAMES];
+    int current_frame;
+    double animation_time;
+	int				teleport;
 }					t_game;
 
 // init.c
@@ -154,12 +159,17 @@ void				validate_flood_fill(char **map, int x, int y);
 void				free_map(char **map);
 void				validate_map_chars(t_game *game);
 void				load_texture(t_game *game, char *path, char c);
-void				get_back_to_map(char *line, int fd);
+char				**get_back_to_map(char *line, int fd, int count);
 int					isvalidchar(char c);
 int					ft_tablen(char **tab);
 
-//minimap
-void	draw_minimap(t_game *game);
+// minimap
+void				draw_minimap(t_game *game);
 
+// teleport
+void				teleport_player(t_game *game);
 
-void displaymap(t_game *game);
+//particles
+void	load_particle_frames(t_game *game);
+void	start_particle_animation(t_game *game);
+void	draw_particle_animation(t_game *game);

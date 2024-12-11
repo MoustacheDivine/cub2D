@@ -6,7 +6,7 @@
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 02:35:28 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/11 14:24:27 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/11 20:58:55 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,13 @@ void	init_colors(t_game *game)
 	game->floor.r = -1;
 	game->floor.g = -1;
 	game->floor.b = -1;
+	game->textures.n = NULL;
+	game->textures.s = NULL;
+	game->textures.w = NULL;
+	game->textures.e = NULL;
 }
 
-void		init_player(t_game *game)
+void	init_player(t_game *game)
 {
 	int	x;
 	int	y;
@@ -103,5 +107,7 @@ t_game	*init_game(char *path)
 		free(game);
 		exit(1);
 	}
+	game->teleport = 0;
+	load_particle_frames(game);
 	return (game);
 }

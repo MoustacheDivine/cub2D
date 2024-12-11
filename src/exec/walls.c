@@ -6,7 +6,7 @@
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 10:36:24 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/11 14:45:02 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/11 20:01:15 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,9 @@ void	draw_wall_pixels(t_game *game, int x, mlx_texture_t *texture, t_wall *wall,
 	y = wall->start_y;
 	while (y <= wall->end_y)
 	{
-		// Calculer la coordonnée Y dans la texture
 		tex_y = (int)tex_pos % texture->height;
 		tex_pos += step;
-
-		// Récupérer la couleur depuis la texture
 		color = get_texture_pixel(texture, tex_x, tex_y);
-
-		// Dessiner le pixel
 		mlx_put_pixel(game->img, x, y, color);
 		y++;
 	}

@@ -15,7 +15,7 @@ EXECDIR		=	src/exec
 PARSDIR		=	src/parsing
 OBJDIR		=	obj
 
-EXEC = main init render raycasting moves player walls draw colors minimap
+EXEC = main init render raycasting moves player walls draw colors minimap teleport particles
 PARS = parsing utils utils2 utils3 utils4
 
 SRCS		=	$(addprefix $(EXECDIR)/, $(addsuffix .c, $(EXEC))) \

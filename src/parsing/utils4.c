@@ -6,11 +6,21 @@
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 18:51:07 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/11 14:17:03 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/11 19:49:28 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void display_map(t_game *game)
+{
+	int i = 0;
+	while (game->map[i])
+	{
+		printf("%s\n", game->map[i]);
+		i++;
+	}
+}
 
 void	load_texture(t_game *game, char *path, char c)
 {
@@ -57,42 +67,58 @@ char	**cpy_map(t_game *game)
 	return (map);
 }
 
-void	get_back_to_map(char *line, int fd)
+char	**get_back_to_map(char *line, int fd, int count)
 {
 	char	*tmp;
+	char **map;
+	int i;
 
+	i = 0;
+	map = malloc(sizeof(char *) * (count + 1));
 	while (line)
 	{
 		tmp = ft_strtrim(ft_strdup(line), " ");
-		printf("tmp %s\n", tmp);
 		if (ft_strncmp(tmp, "1", 1) == 0 || ft_strncmp(tmp, "0", 1) == 0)
-			return ;
+			break ;
 		free(tmp);
 		free(line);
 		line = get_next_line(fd);
 	}
-	free(tmp);
-}
-
-void	parse_map_loop(int fd, t_game *game, char *line, char *file)
-{
-	char		**map;
-	static int	i = 0;
-	int			count;
-
-	count = get_map_len(line, fd, file);
-	map = malloc(sizeof(char *) * (count + 1));
-	line = get_next_line(fd);
-	get_back_to_map(line, fd);
-	while (count > 0)
+	while (count > 0 && line)
 	{
-		printf("line %s\n", line);
-		map[i++] = ft_strdup(line);
+		map[i] = ft_strdup(line);
+		i++;
 		free(line);
 		line = get_next_line(fd);
 		count--;
 	}
 	map[i] = NULL;
+	free(tmp);
+	return (map);
+}
+
+void	parse_map_loop(int fd, t_game *game, char *line, char *file)
+{
+	char		**map;
+	//static int	i = 0;
+	int			count;
+
+	count = get_map_len(line, fd, file);
+	//map = malloc(sizeof(char *) * (count + 1));
+	line = get_next_line(fd);
+	map = get_back_to_map(line, fd, count);
+	line = get_next_line(fd);
+	// while (count > 0 && line)
+	// {
+	// 	map[i] = ft_strdup(line);
+	// 	i++;
+	// 	free(line);
+	// 	line = get_next_line(fd);
+	// 	count--;
+	// }
+	//map[i] = NULL;
 	game->map = map;
+	display_map(game);
 	check_end(game, line, fd);
 }
+

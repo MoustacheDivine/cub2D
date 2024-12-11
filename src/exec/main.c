@@ -6,7 +6,7 @@
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:59:47 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/11 15:39:16 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/11 20:59:13 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,11 @@ void	door_hook(mlx_key_data_t keydata, void *param)
 			{
 				game->map[target_y][target_x] = 'D';
 			}
+		}
+		if (keydata.key == MLX_KEY_E)
+		{
+			game->teleport = 1;
+			teleport_player(game);
 		}
 	}
 }
