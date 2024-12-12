@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:59:47 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/11 20:59:13 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/12 01:37:07 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ void	key_hook(void *param)
 		move_left(game);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
 		move_right(game);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
+		rotate_player(game, -ROTA_SPEED);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
+		rotate_player(game, ROTA_SPEED);
 	render(game);
 }
 
@@ -79,13 +83,9 @@ void	door_hook(mlx_key_data_t keydata, void *param)
 			target_x = (int)(game->player.x + game->player.dir_x);
 			target_y = (int)(game->player.y + game->player.dir_y);
 			if (game->map[target_y][target_x] == 'D')
-			{
 				game->map[target_y][target_x] = 'O';
-			}
 			else if (game->map[target_y][target_x] == 'O')
-			{
 				game->map[target_y][target_x] = 'D';
-			}
 		}
 		if (keydata.key == MLX_KEY_E)
 		{

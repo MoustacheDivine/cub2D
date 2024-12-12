@@ -3,50 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 21:33:17 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/11 14:20:40 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/12 02:30:22 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	check_end(t_game *game, char *line, int fd)
-{
-	while (line)
-	{
-		if (line[0] != '1' && line[0] != ' ' && line[0] != '0'
-			&& line[0] != '\n')
-		{
-			printf("Error\nmap not at the end\n");
-			free_map(game->map);
-			exit(1);
-		}
-		free(line);
-		line = get_next_line(fd);
-	}
-}
-
-void	check_all_data(t_game *game)
-{
-	if (!game->textures.n || !game->textures.s || !game->textures.w
-		|| !game->textures.e)
-	{
-		printf("Error\nMissing texture\n");
-		exit(1);
-	}
-	if (game->floor.r < 0 || game->floor.g < 0 || game->floor.b < 0)
-	{
-		printf("Error\nMissing floor color\n");
-		exit(1);
-	}
-	if (game->ceiling.r < 0 || game->ceiling.g < 0 || game->ceiling.b < 0)
-	{
-		printf("Error\nMissing ceiling color\n");
-		exit(1);
-	}
-}
 
 void	get_player_pos(t_game *game)
 {
@@ -120,35 +84,3 @@ void	validate_flood_fill(char **map, int x, int y)
 	validate_flood_fill(map, x, y - 1);
 	validate_flood_fill(map, x, y + 1);
 }
-
-// void get_player_dir(t_game *game)
-// {
-// 	if (game->map[(int)game->player.y][(int)game->player.x] == 'N')
-// 	{
-// 		game->player.dir_x = -1;
-// 		game->player.dir_y = 0;
-// 		game->player.plane_x = 0;
-// 		game->player.plane_y = 0.66;
-// 	}
-// 	else if (game->map[(int)game->player.y][(int)game->player.x] == 'S')
-// 	{
-// 		game->player.dir_x = 1;
-// 		game->player.dir_y = 0;
-// 		game->player.plane_x = 0;
-// 		game->player.plane_y = -0.66;
-// 	}
-// 	else if (game->map[(int)game->player.y][(int)game->player.x] == 'W')
-// 	{
-// 		game->player.dir_x = 0;
-// 		game->player.dir_y = -1;
-// 		game->player.plane_x = -0.66;
-// 		game->player.plane_y = 0;
-// 	}
-// 	else if (game->map[(int)game->player.y][(int)game->player.x] == 'E')
-// 	{
-// 		game->player.dir_x = 0;
-// 		game->player.dir_y = 1;
-// 		game->player.plane_x = 0.66;
-// 		game->player.plane_y = 0;
-// 	}
-// }

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils4.c                                           :+:      :+:    :+:   */
+/*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 18:51:07 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/11 19:49:28 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/12 02:36:41 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void display_map(t_game *game)
+/*void display_map(t_game *game)
 {
 	int i = 0;
 	while (game->map[i])
@@ -20,6 +20,41 @@ void display_map(t_game *game)
 		printf("%s\n", game->map[i]);
 		i++;
 	}
+}*/
+
+void get_map_dimension(t_game *game)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	game->map_width = 0;
+	while (game->map[i])
+	{
+		j = 0;
+		while (game->map[i][j])
+			j++;
+		if (j > game->map_width)
+			game->map_width = j;
+		i++;
+	}
+	game->map_height = i;
+}
+
+int	get_map_len(char *line, int fd, char *file)
+{
+	int	count;
+
+	count = 0;
+	while (line && ft_strcmp(line, "\n") != 0)
+	{
+		count++;
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+	open(file, O_RDONLY);
+	return (count);
 }
 
 void	load_texture(t_game *game, char *path, char c)
@@ -97,28 +132,5 @@ char	**get_back_to_map(char *line, int fd, int count)
 	return (map);
 }
 
-void	parse_map_loop(int fd, t_game *game, char *line, char *file)
-{
-	char		**map;
-	//static int	i = 0;
-	int			count;
 
-	count = get_map_len(line, fd, file);
-	//map = malloc(sizeof(char *) * (count + 1));
-	line = get_next_line(fd);
-	map = get_back_to_map(line, fd, count);
-	line = get_next_line(fd);
-	// while (count > 0 && line)
-	// {
-	// 	map[i] = ft_strdup(line);
-	// 	i++;
-	// 	free(line);
-	// 	line = get_next_line(fd);
-	// 	count--;
-	// }
-	//map[i] = NULL;
-	game->map = map;
-	display_map(game);
-	check_end(game, line, fd);
-}
 

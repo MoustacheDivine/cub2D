@@ -3,32 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:48:53 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/11 19:49:00 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/12 02:36:58 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	associate_color(t_game *game, char c, t_color rgb)
-{
-	if (c == 'F')
-	{
-		check_double(game, c);
-		game->floor.r = rgb.r;
-		game->floor.g = rgb.g;
-		game->floor.b = rgb.b;
-	}
-	else if (c == 'C')
-	{
-		check_double(game, c);
-		game->ceiling.r = rgb.r;
-		game->ceiling.g = rgb.g;
-		game->ceiling.b = rgb.b;
-	}
-}
 
 void	parse_color(char *line, t_game *game, char c)
 {
@@ -55,36 +37,18 @@ void	parse_texture(char *line, t_game *game, char c)
 	free(path);
 }
 
-void get_map_dimension(t_game *game)
+void	parse_map_loop(int fd, t_game *game, char *line, char *file)
 {
-	int	i;
-	int	j;
+	char	**map;
+	int		count;
 
-	i = 0;
-	game->map_width = 0;
-	while (game->map[i])
-	{
-		j = 0;
-		while (game->map[i][j])
-			j++;
-		if (j > game->map_width)
-			game->map_width = j;
-		i++;
-	}
-	game->map_height = i;
-}
-
-void	check_all(t_game *game)
-{
-	char	**cpy;
-
-	check_all_data(game);
-	get_player_pos(game);
-	cpy = cpy_map(game);
-	validate_map_chars(game);
-	validate_flood_fill(cpy, game->player.x, game->player.y);
-	get_map_dimension(game);
-	free_map(cpy);
+	count = get_map_len(line, fd, file);
+	line = get_next_line(fd);
+	map = get_back_to_map(line, fd, count);
+	line = get_next_line(fd);
+	game->map = map;
+	//display_map(game);
+	check_end(game, line, fd);
 }
 
 int	parsing(char *map, t_game *game)

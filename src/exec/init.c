@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 02:35:28 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/11 20:58:55 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/12 02:18:28 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,11 @@ void	init_ray(t_game *game)
 t_game	*init_game(char *path)
 {
 	t_game	*game;
-
+  
 	game = malloc(sizeof(t_game));
-	init_window(game);
-	// init_map(game);
 	init_colors(game);
 	parsing(path, game);
+	init_window(game);
 	init_player(game);
 	init_ray(game);
 	game->textures.door = mlx_load_png("textures/door.png");

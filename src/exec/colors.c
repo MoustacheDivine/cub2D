@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 10:48:17 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/11 20:03:11 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/12 02:28:30 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,23 @@ uint32_t	get_texture_pixel(mlx_texture_t *texture, int tex_x, int tex_y)
 		| (texture->pixels[tex_offset + 2] << 8)
 		| (texture->pixels[tex_offset + 3]);
 	return (color);
+}
+
+void	associate_color(t_game *game, char c, t_color rgb)
+{
+	if (c == 'F')
+	{
+		check_double(game, c);
+		game->floor.r = rgb.r;
+		game->floor.g = rgb.g;
+		game->floor.b = rgb.b;
+	}
+	else if (c == 'C')
+	{
+		check_double(game, c);
+		game->ceiling.r = rgb.r;
+		game->ceiling.g = rgb.g;
+		game->ceiling.b = rgb.b;
+	}
 }
 

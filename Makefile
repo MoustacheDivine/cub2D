@@ -16,7 +16,7 @@ PARSDIR		=	src/parsing
 OBJDIR		=	obj
 
 EXEC = main init render raycasting moves player walls draw colors minimap teleport particles
-PARS = parsing utils utils2 utils3 utils4
+PARS = parsing utils check free map scam valid
 
 SRCS		=	$(addprefix $(EXECDIR)/, $(addsuffix .c, $(EXEC))) \
 				$(addprefix $(PARSDIR)/, $(addsuffix .c, $(PARS)))

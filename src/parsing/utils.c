@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 18:31:25 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/11 14:20:40 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/12 02:39:11 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int	isvalidchar(char c)
-{
-	return (c == ' ' || c == '1' || c == '0' || c == 'N' || c == 'S' || c == 'W'
-		|| c == 'E' || c == 'D');
-}
 
 int	cmp_line(char *tmp, t_game *game)
 {
@@ -67,18 +61,12 @@ void	error_double(int i)
 	}
 }
 
-void	check_double(t_game *game, char c)
+int	ft_tablen(char **tab)
 {
-	if (c == 'N' && game->textures.n)
-		error_double(1);
-	else if (c == 'S' && game->textures.s)
-		error_double(1);
-	else if (c == 'W' && game->textures.w)
-		error_double(1);
-	else if (c == 'E' && game->textures.e)
-		error_double(1);
-	else if (c == 'F' && game->floor.r >= 0)
-		error_double(2);
-	else if (c == 'C' && game->ceiling.r >= 0)
-		error_double(2);
+	int	i;
+
+	i = 0;
+	while (tab[i])
+		i++;
+	return (i);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils3.c                                           :+:      :+:    :+:   */
+/*   scam.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 18:48:52 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/10 18:58:14 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/12 02:39:02 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,40 +51,4 @@ long	ft_atoi_scam(const char *str)
 	if (str[i] == '\0' && result >= 0 && result <= 255)
 		return (result);
 	return (ERROR_VALUE);
-}
-
-int	get_map_len(char *line, int fd, char *file)
-{
-	int	count;
-
-	count = 0;
-	while (line && ft_strcmp(line, "\n") != 0)
-	{
-		count++;
-		free(line);
-		line = get_next_line(fd);
-	}
-	close(fd);
-	open(file, O_RDONLY);
-	return (count);
-}
-
-int	ft_tablen(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-		i++;
-	return (i);
-}
-
-void	free_map(char **map)
-{
-	int	i;
-
-	i = 0;
-	while (map[i])
-		free(map[i++]);
-	free(map);
 }

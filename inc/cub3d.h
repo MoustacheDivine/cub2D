@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 17:04:52 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/11 21:22:51 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/12 02:43:56 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,9 @@ typedef struct s_game
 	t_textures		textures;
 	t_player		player;
 	t_ray			ray;
-	mlx_texture_t *particle_frames[NUM_FRAMES];
-    int current_frame;
-    double animation_time;
+	mlx_texture_t	*particle_frames[NUM_FRAMES];
+	int				current_frame;
+	double			animation_time;
 	int				teleport;
 }					t_game;
 
@@ -109,6 +109,7 @@ int					create_rgb(unsigned char r, unsigned char g,
 						unsigned char b);
 uint32_t			get_texture_pixel(mlx_texture_t *texture, int tex_x,
 						int tex_y);
+void				associate_color(t_game *game, char c, t_color rgb);
 
 // player.c
 void				player_N(t_game *game);
@@ -145,7 +146,9 @@ void				load_texture(t_game *game, char *path, char c);
 void				parse_map_loop(int fd, t_game *game, char *line,
 						char *file);
 int					parsing(char *map, t_game *game);
+
 // utils
+void				error_double(int i);
 long				ft_atoi_scam(const char *str);
 int					cmp_line(char *tmp, t_game *game);
 char				*clean_line(char *line);
@@ -163,13 +166,27 @@ char				**get_back_to_map(char *line, int fd, int count);
 int					isvalidchar(char c);
 int					ft_tablen(char **tab);
 
+// check.c
+int					isvalidchar(char c);
+void				check_all(t_game *game);
+void				check_all_data(t_game *game);
+void				check_double(t_game *game, char c);
+void				check_end(t_game *game, char *line, int fd);
+
+// map.c
+char				**cpy_map(t_game *game);
+void				get_map_dimension(t_game *game);
+int					get_map_len(char *line, int fd, char *file);
+void				load_texture(t_game *game, char *path, char c);
+char				**get_back_to_map(char *line, int fd, int count);
+
 // minimap
 void				draw_minimap(t_game *game);
 
 // teleport
 void				teleport_player(t_game *game);
 
-//particles
-void	load_particle_frames(t_game *game);
-void	start_particle_animation(t_game *game);
-void	draw_particle_animation(t_game *game);
+// particles
+void				load_particle_frames(t_game *game);
+void				start_particle_animation(t_game *game);
+void				draw_particle_animation(t_game *game);
