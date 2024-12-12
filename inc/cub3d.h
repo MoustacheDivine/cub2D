@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 17:04:52 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/12 09:57:25 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/12 13:08:40 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #define T_WIDTH 256
 #define NUM_FRAMES 115
 #define TP_FRAMES 4
+#define MAX_ITER 300
 
 typedef struct s_ray
 {
@@ -112,6 +113,7 @@ typedef struct s_game
 	double			animation_time;
 	int				teleport;
 	t_draw			draw;
+	mlx_texture_t	*tp;
 }					t_game;
 
 // init.c
@@ -204,6 +206,7 @@ void				teleport_player(t_game *game);
 void				load_particle_frames(t_game *game);
 void				start_particle_animation(t_game *game);
 void				draw_particle_animation(t_game *game);
+void	draw_texture(t_game *game, mlx_texture_t *src, int x, int y);
 
 // free.c
 void				free_positions(int **positions, int count);

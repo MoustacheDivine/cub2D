@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 16:44:23 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/12 10:04:31 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/12 13:08:17 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	teleport_flood_fill(char **map, int x, int y)
 		return (0);
 	if (teleport_flood_fill(map, x, y + 1) == 0)
 		return (0);
-	display_map(map);
+//	display_map(map);
 	return (1);
 }
 
@@ -49,7 +49,7 @@ void	exec_teleport(t_game *game, int count, int **av_pos, char ***test_map)
 	int	random_index;
 	int	current_index;
 
-	while (count > 0)
+	while (count > 0 && count <= MAX_ITER)
 	{
 		random_index = generate_random_index(count);
 		*test_map = cpy_map(game);

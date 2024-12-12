@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:04:34 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/12 09:25:46 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/12 12:32:02 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,29 +50,6 @@ void	load_particle_frames(t_game *game)
 	// free(path);
 	game->current_frame = 0;
 	game->animation_time = 0.0;
-}
-
-/*void	load_tp_frames(t_game *game)
-{
-	game->tp_frames[0] = mlx_load_png("textures/animation/tp0");
-	game->tp_frames[1] = mlx_load_png("textures/animation/tp1");
-	game->tp_frames[2] = mlx_load_png("textures/animation/tp2");
-	game->tp_frames[3] = mlx_load_png("textures/animation/tp3");
-}*/
-void	update_particle_animation(t_game *game)
-{
-	double	current_time;
-
-	current_time = mlx_get_time();
-	if (current_time - game->animation_time >= 0.05)
-	{
-		game->current_frame++;
-		game->animation_time = current_time;
-		if (game->current_frame >= NUM_FRAMES)
-		{
-			game->current_frame = -1;
-		}
-	}
 }
 
 void	draw_texture(t_game *game, mlx_texture_t *src, int x, int y)
@@ -132,3 +109,4 @@ void	draw_particle_animation(t_game *game)
 		i = 0;
 	}
 }
+

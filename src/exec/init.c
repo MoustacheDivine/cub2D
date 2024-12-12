@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 02:35:28 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/12 06:28:58 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/12 11:48:45 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	init_colors(t_game *game)
 	game->textures.s = NULL;
 	game->textures.w = NULL;
 	game->textures.e = NULL;
-	game->textures.t = NULL;
+	game->tp_frames[0] = NULL;
+	game->tp_frames[0] = NULL;
 }
 
 void	init_player(t_game *game)
@@ -90,6 +91,14 @@ void	init_ray(t_game *game)
 	game->ray.wall_door = 0;
 }
 
+void	load_tp_frames(t_game *game)
+{
+	game->tp_frames[0] = mlx_load_png("textures/animation/tp0.png");
+	game->tp_frames[1] = mlx_load_png("textures/animation/tp3.png");
+	game->tp_frames[2] = mlx_load_png("textures/animation/tp2.png");
+	game->tp_frames[3] = mlx_load_png("textures/animation/tp1.png");
+}
+
 t_game	*init_game(char *path)
 {
 	t_game	*game;
@@ -107,8 +116,7 @@ t_game	*init_game(char *path)
 		free(game);
 		exit(1);
 	}
-	game->textures.t = mlx_load_png("textures/animation/tp0.png");
-	/*if (!game->textures.t)
+	/*if (!game->tp_frames[0])
 	{
 		printf("Error: Failed to load teleport image.\n");
 		mlx_terminate(game->mlx);
@@ -116,6 +124,7 @@ t_game	*init_game(char *path)
 		exit(1);
 	}*/
 	game->teleport = 0;
+	load_tp_frames(game);
 	load_particle_frames(game);
 	return (game);
 }
