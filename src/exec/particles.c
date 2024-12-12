@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:04:34 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/12 08:04:03 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/12 09:25:46 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	load_particle_frames(t_game *game)
 	game->tp_frames[2] = mlx_load_png("textures/animation/tp2");
 	game->tp_frames[3] = mlx_load_png("textures/animation/tp3");
 }*/
-
 void	update_particle_animation(t_game *game)
 {
 	double	current_time;
@@ -78,34 +77,30 @@ void	update_particle_animation(t_game *game)
 
 void	draw_texture(t_game *game, mlx_texture_t *src, int x, int y)
 {
-	int	*pixels;
+	int			*pixels;
 	mlx_image_t	*dest;
-	int	color;
-	int	i;
-	int	j;
-	int	new_x;
-	int	new_y;
+	t_draw		dr;
 
 	dest = game->img;
 	pixels = (int *)src->pixels;
-	j = 0;
-	while (j < (int)src->height)
+	dr = game->draw;
+	dr.j = -1;
+	while (++dr.j < (int)src->height)
 	{
-		i = 0;
-		while (i < (int)src->width)
+		dr.i = 0;
+		while (dr.i < (int)src->width)
 		{
-			new_x = x + i;
-			new_y = y + j;
-			if (new_x >= 0 && new_x < (int)dest->width && new_y >= 0
-				&& new_y < (int)dest->height)
+			dr.new_x = x + dr.i;
+			dr.new_y = y + dr.j;
+			if (dr.new_x >= 0 && dr.new_x < (int)dest->width && dr.new_y >= 0
+				&& dr.new_y < (int)dest->height)
 			{
-				color = pixels[j * src->width + i];
-				if ((color >> 24) != 0)
-					mlx_put_pixel(dest, new_x, new_y, color);
+				dr.color = pixels[dr.j * src->width + dr.i];
+				if ((dr.color >> 24) != 0)
+					mlx_put_pixel(dest, dr.new_x, dr.new_y, dr.color);
 			}
-			i++;
+			dr.i++;
 		}
-		j++;
 	}
 }
 
