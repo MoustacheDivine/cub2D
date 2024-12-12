@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:04:34 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/12 04:19:03 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/12 06:23:29 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,14 @@ void	load_particle_frames(t_game *game)
 	game->animation_time = 0.0;
 }
 
+/*void	load_tp_frames(t_game *game)
+{
+	game->tp_frames[0] = mlx_load_png("textures/animation/tp0");
+	game->tp_frames[1] = mlx_load_png("textures/animation/tp1");
+	game->tp_frames[2] = mlx_load_png("textures/animation/tp2");
+	game->tp_frames[3] = mlx_load_png("textures/animation/tp3");
+}*/
+
 void	update_particle_animation(t_game *game)
 {
 	double	current_time;
@@ -72,13 +80,17 @@ void	draw_texture(mlx_image_t *dest, mlx_texture_t *src, int x, int y)
 {
 	int	*pixels;
 	int	color;
+	int	i;
+	int	j;
+	int	dest_x;
+	int	dest_y;
 
-	int i, j;
-	int dest_x, dest_y;
 	pixels = (int *)src->pixels;
-	for (j = 0; j < (int)src->height; j++)
+	j = 0;
+	while (j < (int)src->height)
 	{
-		for (i = 0; i < (int)src->width; i++)
+		i = 0;
+		while (i < (int)src->width)
 		{
 			dest_x = x + i;
 			dest_y = y + j;
@@ -86,10 +98,12 @@ void	draw_texture(mlx_image_t *dest, mlx_texture_t *src, int x, int y)
 				&& dest_y < (int)dest->height)
 			{
 				color = pixels[j * src->width + i];
-				if (color >> 24 != 0)
+				if ((color >> 24) != 0)
 					mlx_put_pixel(dest, dest_x, dest_y, color);
 			}
+			i++;
 		}
+		j++;
 	}
 }
 
@@ -115,7 +129,6 @@ void	draw_particle_animation(t_game *game)
 	}
 	draw_texture(game->img, current_frame, 0, 0);
 	i++;
-	printf("Drawing frame %d\n", i);
 	if (i == NUM_FRAMES)
 	{
 		game->teleport = 0;

@@ -6,23 +6,13 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 18:51:07 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/12 02:36:41 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/12 06:58:47 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-/*void display_map(t_game *game)
-{
-	int i = 0;
-	while (game->map[i])
-	{
-		printf("%s\n", game->map[i]);
-		i++;
-	}
-}*/
-
-void get_map_dimension(t_game *game)
+void	get_map_dimension(t_game *game)
 {
 	int	i;
 	int	j;
@@ -105,8 +95,8 @@ char	**cpy_map(t_game *game)
 char	**get_back_to_map(char *line, int fd, int count)
 {
 	char	*tmp;
-	char **map;
-	int i;
+	char	**map;
+	int		i;
 
 	i = 0;
 	map = malloc(sizeof(char *) * (count + 1));
@@ -121,8 +111,7 @@ char	**get_back_to_map(char *line, int fd, int count)
 	}
 	while (count > 0 && line)
 	{
-		map[i] = ft_strdup(line);
-		i++;
+		map[i++] = ft_strdup(line);
 		free(line);
 		line = get_next_line(fd);
 		count--;
@@ -131,6 +120,3 @@ char	**get_back_to_map(char *line, int fd, int count)
 	free(tmp);
 	return (map);
 }
-
-
-

@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:48:53 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/12 02:36:58 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/12 06:54:46 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	parse_map_loop(int fd, t_game *game, char *line, char *file)
 	map = get_back_to_map(line, fd, count);
 	line = get_next_line(fd);
 	game->map = map;
-	//display_map(game);
 	check_end(game, line, fd);
 }
 

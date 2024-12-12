@@ -6,19 +6,19 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 02:56:27 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/10 07:51:44 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/12 06:29:03 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	player_NSWE(t_game *game, int x, int y)
+void	player_nswe(t_game *game, int x, int y)
 {
 	game->player.x = x + 0.5;
 	game->player.y = y + 0.5;
 }
 
-void	player_N(t_game *game)
+void	player_n(t_game *game)
 {
 	game->player.dir_x = 0;
 	game->player.dir_y = -1;
@@ -26,7 +26,7 @@ void	player_N(t_game *game)
 	game->player.plane_y = 0;
 }
 
-void	player_S(t_game *game)
+void	player_s(t_game *game)
 {
 	game->player.dir_x = 0;
 	game->player.dir_y = 1;
@@ -34,7 +34,7 @@ void	player_S(t_game *game)
 	game->player.plane_y = 0;
 }
 
-void	player_W(t_game *game)
+void	player_w(t_game *game)
 {
 	game->player.dir_x = -1;
 	game->player.dir_y = 0;
@@ -42,7 +42,7 @@ void	player_W(t_game *game)
 	game->player.plane_y = 0.66;
 }
 
-void	player_E(t_game *game)
+void	player_e(t_game *game)
 {
 	game->player.dir_x = 1;
 	game->player.dir_y = 0;

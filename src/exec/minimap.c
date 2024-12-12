@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 19:45:58 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/11 14:34:54 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/12 06:17:50 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-
 void	draw_mini_square(t_game *game, int x, int y, int size, int color)
 {
-	int i, j;
+	int	i;
+	int	j;
+
 	i = 10;
 	while (i < size + 10)
 	{
@@ -31,7 +32,9 @@ void	draw_mini_square(t_game *game, int x, int y, int size, int color)
 
 void	draw_player_on_minimap(t_game *game)
 {
-	int px, py;
+	int	px;
+	int	py;
+
 	px = (int)(game->player.x * 5);
 	py = (int)(game->player.y * 5);
 	draw_mini_square(game, px - 1, py - 1, 3, create_rgb(255, 0, 0));
@@ -40,9 +43,10 @@ void	draw_player_on_minimap(t_game *game)
 void	draw_minimap(t_game *game)
 {
 	int	color;
-
-	int map_x, map_y;
-	int px, py;
+	int	map_x;
+	int	map_y;
+	int	px;
+	int	py;
 
 	map_y = 0;
 	while (game->map[map_y])

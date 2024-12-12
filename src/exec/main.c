@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:59:47 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/12 04:38:45 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/12 05:50:08 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,7 @@ void	door_hook(mlx_key_data_t keydata, void *param)
 				game->map[target_y][target_x] = 'D';
 		}
 		if (keydata.key == MLX_KEY_E)
-		{
 			game->teleport = 1;
-		}
 	}
 }
 

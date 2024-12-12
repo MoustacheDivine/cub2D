@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 17:04:52 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/12 04:29:18 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/12 06:50:23 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #define ROTA_SPEED 0.05
 #define T_WIDTH 256
 #define NUM_FRAMES 115
+#define TP_FRAMES 4
 
 typedef struct s_ray
 {
@@ -69,22 +70,34 @@ typedef struct s_textures
 	mlx_texture_t	*s;
 	mlx_texture_t	*w;
 	mlx_texture_t	*e;
+	mlx_texture_t	*t;
 	mlx_texture_t	*door;
 }					t_textures;
 
 typedef struct s_wall
 {
-	int wall_height; // Hauteur du mur en pixels
-	int start_y;     // Coordonnée Y de début du mur
-	int end_y;       // Coordonnée Y de fin du mur
-	double tex_pos;  // Position verticale actuelle dans la texture
-	double step;     // Taille du pas entre les pixels dans la texture
+	int				wall_height;
+	int				start_y;
+	int				end_y;
+	double			tex_pos;
+	double			step;
+	int				tex_x;
+	mlx_texture_t	*texture;
 }					t_wall;
+
+typedef struct s_mini
+{
+	int				color;
+	int				map_x;
+	int				map_y;
+	int				px;
+	int				py;
+}					t_mini;
 
 typedef struct s_game
 {
 	mlx_t			*mlx;
-	mlx_image_t		*minimap;
+	// mlx_image_t		*minimap;
 	mlx_image_t		*img;
 	char			**map;
 	int				map_width;
@@ -96,9 +109,11 @@ typedef struct s_game
 	t_player		player;
 	t_ray			ray;
 	mlx_texture_t	*particle_frames[NUM_FRAMES];
+	mlx_texture_t	*tp_frames[TP_FRAMES];
 	int				current_frame;
 	double			animation_time;
 	int				teleport;
+	t_mini			mini;
 }					t_game;
 
 // init.c
@@ -112,11 +127,11 @@ uint32_t			get_texture_pixel(mlx_texture_t *texture, int tex_x,
 void				associate_color(t_game *game, char c, t_color rgb);
 
 // player.c
-void				player_N(t_game *game);
-void				player_S(t_game *game);
-void				player_W(t_game *game);
-void				player_E(t_game *game);
-void				player_NSWE(t_game *game, int x, int y);
+void				player_n(t_game *game);
+void				player_s(t_game *game);
+void				player_w(t_game *game);
+void				player_e(t_game *game);
+void				player_nswe(t_game *game, int x, int y);
 
 // moves.c
 void				rotate_player(t_game *game, double angle);
@@ -127,6 +142,7 @@ void				move_right(t_game *game);
 
 // render.c
 void				render(void *param);
+void				draw_teleport(t_game *game);
 
 // draw.c
 void				draw_game(t_game *game);
@@ -190,3 +206,6 @@ void				teleport_player(t_game *game);
 void				load_particle_frames(t_game *game);
 void				start_particle_animation(t_game *game);
 void				draw_particle_animation(t_game *game);
+
+// free.c
+void				free_positions(int **positions, int count);

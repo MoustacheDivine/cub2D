@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 05:53:25 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/10 10:48:37 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/12 06:05:11 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	draw_walls(t_game *game)
 
 void	draw_game(t_game *game)
 {
-	int y;
+	int	y;
 
 	y = draw_ceiling(game);
 	draw_floor(game, y);

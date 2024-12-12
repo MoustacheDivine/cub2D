@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 02:35:28 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/12 02:18:28 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/12 06:28:58 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	init_colors(t_game *game)
 	game->textures.s = NULL;
 	game->textures.w = NULL;
 	game->textures.e = NULL;
+	game->textures.t = NULL;
 }
 
 void	init_player(t_game *game)
@@ -56,15 +57,15 @@ void	init_player(t_game *game)
 		{
 			if (game->map[y][x] == 'N' || game->map[y][x] == 'S'
 				|| game->map[y][x] == 'W' || game->map[y][x] == 'E')
-				player_NSWE(game, x, y);
+				player_nswe(game, x, y);
 			if (game->map[y][x] == 'N')
-				player_N(game);
+				player_n(game);
 			if (game->map[y][x] == 'S')
-				player_S(game);
+				player_s(game);
 			if (game->map[y][x] == 'W')
-				player_W(game);
+				player_w(game);
 			if (game->map[y][x] == 'E')
-				player_E(game);
+				player_e(game);
 			x++;
 		}
 		y++;
@@ -92,7 +93,7 @@ void	init_ray(t_game *game)
 t_game	*init_game(char *path)
 {
 	t_game	*game;
-  
+
 	game = malloc(sizeof(t_game));
 	init_colors(game);
 	parsing(path, game);
@@ -106,6 +107,14 @@ t_game	*init_game(char *path)
 		free(game);
 		exit(1);
 	}
+	game->textures.t = mlx_load_png("textures/animation/tp0.png");
+	/*if (!game->textures.t)
+	{
+		printf("Error: Failed to load teleport image.\n");
+		mlx_terminate(game->mlx);
+		free(game);
+		exit(1);
+	}*/
 	game->teleport = 0;
 	load_particle_frames(game);
 	return (game);
