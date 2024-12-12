@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:59:47 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/12 12:33:29 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/12 15:13:05 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,6 @@ void	mouse_hook(double xpos, double ypos, void *param)
 	game->player.plane_y = old_plane_x * sin(rotation_speed)
 		+ game->player.plane_y * cos(rotation_speed);
 	mlx_set_mouse_pos(game->mlx, WIDTH / 2, HEIGHT / 2);
-}
-
-void display_map(char **map)
-{
-	int i = 0;
-	while (map[i])
-	{
-		printf("%s\n", map[i]);
-		i++;
-	}
 }
 
 void	door_hook(mlx_key_data_t keydata, void *param)

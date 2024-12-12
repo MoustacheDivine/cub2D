@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   particles.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:04:34 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/12 12:32:02 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/12 15:12:12 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,42 +41,35 @@ void	load_particle_frames(t_game *game)
 		}
 		i++;
 	}
-	i = 0;
-	// while(path[i])
-	// {
-	// 	free(path[i]);
-	// 	i++;
-	// }
-	// free(path);
 	game->current_frame = 0;
 	game->animation_time = 0.0;
 }
 
 void	draw_texture(t_game *game, mlx_texture_t *src, int x, int y)
 {
-	int			*pixels;
 	mlx_image_t	*dest;
 	t_draw		dr;
+	uint8_t		*pixel;
 
 	dest = game->img;
-	pixels = (int *)src->pixels;
 	dr = game->draw;
 	dr.j = -1;
 	while (++dr.j < (int)src->height)
 	{
-		dr.i = 0;
-		while (dr.i < (int)src->width)
+		dr.i = -1;
+		while (++dr.i < (int)src->width)
 		{
 			dr.new_x = x + dr.i;
 			dr.new_y = y + dr.j;
 			if (dr.new_x >= 0 && dr.new_x < (int)dest->width && dr.new_y >= 0
 				&& dr.new_y < (int)dest->height)
 			{
-				dr.color = pixels[dr.j * src->width + dr.i];
+				pixel = src->pixels + (dr.j * src->width + dr.i) * 4;
+				dr.color = (pixel[3] << 24) | (pixel[0])
+					| (pixel[1] << 16) | (pixel[2] << 8);
 				if ((dr.color >> 24) != 0)
 					mlx_put_pixel(dest, dr.new_x, dr.new_y, dr.color);
 			}
-			dr.i++;
 		}
 	}
 }
@@ -109,4 +102,3 @@ void	draw_particle_animation(t_game *game)
 		i = 0;
 	}
 }
-

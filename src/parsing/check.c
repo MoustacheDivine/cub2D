@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 02:27:50 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/12 02:29:37 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/12 14:37:29 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,20 @@ void	check_all(t_game *game)
 	char	**cpy;
 
 	check_all_data(game);
-	get_player_pos(game);
-	cpy = cpy_map(game);
-	validate_map_chars(game);
-	validate_flood_fill(cpy, game->player.x, game->player.y);
-	get_map_dimension(game);
-	free_map(cpy);
+	if (game->map)
+	{
+		get_player_pos(game);
+		cpy = cpy_map(game);
+		validate_map_chars(game);
+		validate_flood_fill(cpy, game->player.x, game->player.y);
+		get_map_dimension(game);
+		free_map(cpy);
+	}
+	else
+	{
+		printf("Error\nNo map\n");
+		exit(1);
+	}
 }
 
 void	check_double(t_game *game, char c)

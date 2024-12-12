@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   teleport.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 16:44:23 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/12 13:08:17 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/12 14:56:53 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	teleport_flood_fill(char **map, int x, int y)
 	if (x < 0 || y < 0 || y >= (int)ft_tablen(map)
 		|| x >= (int)ft_strlen(map[y]))
 		return (0);
-	if (map[y][x] == '1' || map[y][x] == 'x' || map[y][x] == 'D' || map[y][x] == 'O')
+	if (map[y][x] == '1' || map[y][x] == 'x' || map[y][x] == 'D'
+		|| map[y][x] == 'O')
 		return (1);
 	if (map[y][x] == ' ' || !isvalidchar(map[y][x]))
 		return (0);
@@ -40,7 +41,6 @@ int	teleport_flood_fill(char **map, int x, int y)
 		return (0);
 	if (teleport_flood_fill(map, x, y + 1) == 0)
 		return (0);
-//	display_map(map);
 	return (1);
 }
 
