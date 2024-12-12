@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 17:04:52 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/12 02:43:56 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/12 04:29:18 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 #define MOVE_SPEED 0.08
 #define ROTA_SPEED 0.05
 #define T_WIDTH 256
-#define NUM_FRAMES 145
+#define NUM_FRAMES 115
 
 typedef struct s_ray
 {

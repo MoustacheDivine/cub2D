@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   particles.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:04:34 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/11 21:43:05 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/12 04:19:03 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ void	draw_particle_animation(t_game *game)
 
 	if (game->teleport == 0)
 		return ;
+	if (i == 0)
+		teleport_player(game);
 	if (i < 0 || i >= NUM_FRAMES)
 	{
 		printf("Error: invalid frame index: %d\n", i);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   teleport.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 16:44:23 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/11 20:38:35 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/12 04:22:17 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,33 @@ int	count_available_positions(t_game *game)
 	return (count);
 }
 
+int		teleport_flood_fill(char **map, int x, int y)
+{
+	if (x < 0 || y < 0 || y >= (int)ft_tablen(map)
+		|| x >= (int)ft_strlen(map[y]))
+		return (0);
+	if (map[y][x] == '1' || map[y][x] == 'x')
+		return (1);
+	if (map[y][x] == ' ' || !isvalidchar(map[y][x]))
+		return (0);
+	map[y][x] = 'x';
+	if (teleport_flood_fill(map, x - 1, y) == 0)
+		return (0);
+	if (teleport_flood_fill(map, x + 1, y) == 0)
+		return (0);
+	if (teleport_flood_fill(map, x, y - 1) == 0)
+		return (0);
+	if (teleport_flood_fill(map, x, y + 1) == 0)
+		return (0);
+	return (1);
+}
+
 void	teleport_player(t_game *game)
 {
 	int count;
 	int **available_positions;
 	int random_index;
+	char **test_map;
 
 	count = count_available_positions(game);
 	if (count == 0)
@@ -96,9 +118,29 @@ void	teleport_player(t_game *game)
 		return;
 	}
 	available_positions = find_available_positions(game, count);
-	random_index = generate_random_index(count);
-	game->player.x = available_positions[random_index][0] + 0.5;
-	game->player.y = available_positions[random_index][1] + 0.5;
+	while (count > 0)
+	{
+		random_index = generate_random_index(count);
+		test_map = cpy_map(game);
+		if (teleport_flood_fill(test_map, 
+			available_positions[random_index][0] + 0.5, 
+			available_positions[random_index][1] + 0.5))
+		{
+			game->player.x = available_positions[random_index][0] + 0.5;
+			game->player.y = available_positions[random_index][1] + 0.5;
+			free_map(test_map);
+			break;
+		}
+		free_map(test_map);
+		int current_index = 0;
+		while (current_index < count - 1)
+		{
+			available_positions[current_index][0] = available_positions[current_index + 1][0];
+			available_positions[current_index][1] = available_positions[current_index + 1][1];
+			current_index++;
+		}
+		count--;
+	}
 	free_positions(available_positions, count);
 	if (!game->particle_frames[0])
 	{
