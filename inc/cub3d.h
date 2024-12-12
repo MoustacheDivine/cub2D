@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 17:04:52 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/12 06:50:23 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/12 07:16:12 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,3 +209,8 @@ void				draw_particle_animation(t_game *game);
 
 // free.c
 void				free_positions(int **positions, int count);
+
+// positions.c
+int					count_available_positions(t_game *game);
+int					**find_available_positions(t_game *game, int count,
+						int map_y, int index);
