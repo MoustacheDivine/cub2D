@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 17:04:52 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/12 07:16:12 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/12 07:46:46 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,34 +27,32 @@
 
 typedef struct s_ray
 {
-	double camera_x; // Position du rayon sur le plan caméra (de -1 à 1)
-	double dir_x;    // Direction X du rayon (calculée pour chaque colonne)
-	double dir_y;    // Direction Y du rayon (calculée pour chaque colonne)
+	double			camera_x;
+	double			dir_x;
+	double			dir_y;
 	int				map_x;
-	// Coordonnée X de la grille sur laquelle le rayon est actuellement
 	int				map_y;
-	// Coordonnée Y de la grille sur laquelle le rayon est actuellement
-	int step_x;        // Direction à suivre en X (+1 ou -1)
-	int step_y;        // Direction à suivre en Y (+1 ou -1)
-	double sidedist_x; // Distance du point de départ au premier côté vertical
+	int				step_x;
+	int				step_y;
+	double			sidedist_x;
 	double			sidedist_y;
-	// Distance du point de départ au premier côté horizontal
-	double deltadist_x; // Distance entre deux côtés verticaux de la grille
-	double deltadist_y; // Distance entre deux côtés horizontaux de la grille
-	double wall_dist;   // Distance perpendiculaire du joueur au mur touché
-	int side;           // Indique quel côté du mur a été touché
+
+	double			deltadist_x;
+	double			deltadist_y;
+	double			wall_dist;
+	int				side;
 	int				wall_door;
 	int				door_open;
 }					t_ray;
 
 typedef struct s_player
 {
-	double x;       // Position X du joueur
-	double y;       // Position Y du joueur
-	double dir_x;   // Direction du joueur en X
-	double dir_y;   // Direction du joueur en Y
-	double plane_x; // Axe "caméra" X (plan de projection)
-	double plane_y; // Axe "caméra" Y (plan de projection)
+	double			x;
+	double			y;
+	double			dir_x;
+	double			dir_y;
+	double			plane_x;
+	double			plane_y;
 }					t_player;
 
 typedef struct s_color
@@ -85,14 +83,14 @@ typedef struct s_wall
 	mlx_texture_t	*texture;
 }					t_wall;
 
-typedef struct s_mini
+typedef struct s_draw
 {
 	int				color;
-	int				map_x;
-	int				map_y;
-	int				px;
-	int				py;
-}					t_mini;
+	int				i;
+	int				j;
+	int				new_x;
+	int				new_y;
+}					t_draw;
 
 typedef struct s_game
 {
@@ -113,7 +111,7 @@ typedef struct s_game
 	int				current_frame;
 	double			animation_time;
 	int				teleport;
-	t_mini			mini;
+	t_draw			draw;
 }					t_game;
 
 // init.c

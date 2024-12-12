@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:04:34 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/12 06:23:29 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/12 08:04:03 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,17 @@ void	update_particle_animation(t_game *game)
 	}
 }
 
-void	draw_texture(mlx_image_t *dest, mlx_texture_t *src, int x, int y)
+void	draw_texture(t_game *game, mlx_texture_t *src, int x, int y)
 {
 	int	*pixels;
+	mlx_image_t	*dest;
 	int	color;
 	int	i;
 	int	j;
-	int	dest_x;
-	int	dest_y;
+	int	new_x;
+	int	new_y;
 
+	dest = game->img;
 	pixels = (int *)src->pixels;
 	j = 0;
 	while (j < (int)src->height)
@@ -92,14 +94,14 @@ void	draw_texture(mlx_image_t *dest, mlx_texture_t *src, int x, int y)
 		i = 0;
 		while (i < (int)src->width)
 		{
-			dest_x = x + i;
-			dest_y = y + j;
-			if (dest_x >= 0 && dest_x < (int)dest->width && dest_y >= 0
-				&& dest_y < (int)dest->height)
+			new_x = x + i;
+			new_y = y + j;
+			if (new_x >= 0 && new_x < (int)dest->width && new_y >= 0
+				&& new_y < (int)dest->height)
 			{
 				color = pixels[j * src->width + i];
 				if ((color >> 24) != 0)
-					mlx_put_pixel(dest, dest_x, dest_y, color);
+					mlx_put_pixel(dest, new_x, new_y, color);
 			}
 			i++;
 		}
@@ -127,7 +129,7 @@ void	draw_particle_animation(t_game *game)
 		printf("Error: current_frame is NULL (frame %d)\n", i);
 		return ;
 	}
-	draw_texture(game->img, current_frame, 0, 0);
+	draw_texture(game, current_frame, 0, 0);
 	i++;
 	if (i == NUM_FRAMES)
 	{
