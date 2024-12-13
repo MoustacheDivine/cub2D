@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 21:00:17 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/13 21:02:58 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:57:04 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,10 @@ void	load_texture(t_game *game, char *path, char c, char *line)
 	if (!game->texturetmp)
 	{
 		printf("Error\nFailed to load texture\n");
-		(free(path), free(game->line), free(game->tmp2), clean_game(game),
-			exit(1));
+		free(path);
+		free(game->line);
+		free(game->tmp2);
+		clean_game(game);
 	}
 	load_correct_texture(game, c, line);
 }

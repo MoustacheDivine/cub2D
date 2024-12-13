@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 18:31:25 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/13 20:56:28 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:57:05 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,12 @@ void	check_cub(char *fichier)
 	i = 0;
 	len = ft_strlen(fichier);
 	if (len < 4)
-	{
 		printf("Error\nInvalid file\n");
-		exit(1);
-	}
 	while (fichier[i])
 		i++;
 	if (fichier[i - 1] != 'b' || fichier[i - 2] != 'u' || fichier[i - 3] != 'c'
 		|| fichier[i - 4] != '.')
-	{
 		printf("Error\nInvalid file\n");
-		exit(1);
-	}
 }
 
 int	cmp_line(char *tmp, t_game *game)
@@ -58,7 +52,6 @@ int	cmp_line(char *tmp, t_game *game)
 		printf("Error\nInvalid line\n");
 		(free(game->line), free(game->tmp2));
 		clean_game(game);
-		exit(1);
 	}
 	return (0);
 }
@@ -71,7 +64,6 @@ char	*clean_line(char *line, t_game *game)
 	{
 		printf("Error\nInvalid line\n");
 		clean_game(game);
-		exit(1);
 	}
 	cleaned = ft_strtrim(line, " \n");
 	return (cleaned);
@@ -89,7 +81,6 @@ void	error_double(int i, t_game *game, char *line)
 		free(game->line);
 		free(game->tmp2);
 		clean_game(game);
-		exit(1);
 	}
 	else if (i == 2)
 	{
@@ -98,7 +89,6 @@ void	error_double(int i, t_game *game, char *line)
 		free(game->line);
 		free(game->tmp2);
 		clean_game(game);
-		exit(1);
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 10:48:17 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/13 20:17:30 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/13 23:08:41 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,26 @@ void	associate_color(t_game *game, char c, t_color rgb)
 		game->ceiling.r = rgb.r;
 		game->ceiling.g = rgb.g;
 		game->ceiling.b = rgb.b;
+	}
+}
+
+void	check_colors(char **colors, char *tofree, char *tmp, t_game *game)
+{
+	int	i;
+
+	i = -1;
+	if (!colors || !colors[0] || !colors[1] || !colors[2] || colors[3])
+	{
+		printf("Error\nInvalid color\n");
+		if (colors)
+		{
+			while (colors[++i])
+				free(colors[i]);
+			free(colors);
+		}
+		free(tofree);
+		free(tmp);
+		free(game->line);
+		clean_game(game);
 	}
 }

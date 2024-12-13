@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 17:04:52 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/13 20:50:45 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/13 23:09:01 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,8 @@ int					create_rgb(unsigned char r, unsigned char g,
 uint32_t			get_texture_pixel(mlx_texture_t *texture, int tex_x,
 						int tex_y);
 void				associate_color(t_game *game, char c, t_color rgb);
+void				check_colors(char **colors, char *tofree, char *tmp,
+						t_game *game);
 
 // player.c
 void				player_n(t_game *game);

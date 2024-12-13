@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 02:56:27 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/12 06:29:03 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/13 22:35:01 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	player_w(t_game *game)
 	game->player.dir_x = -1;
 	game->player.dir_y = 0;
 	game->player.plane_x = 0;
-	game->player.plane_y = 0.66;
+	game->player.plane_y = -0.66;
 }
 
 void	player_e(t_game *game)
@@ -47,5 +47,5 @@ void	player_e(t_game *game)
 	game->player.dir_x = 1;
 	game->player.dir_y = 0;
 	game->player.plane_x = 0;
-	game->player.plane_y = -0.66;
+	game->player.plane_y = 0.66;
 }

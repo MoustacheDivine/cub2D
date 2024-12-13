@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   particles.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:04:34 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/13 20:57:14 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/13 23:05:57 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	load_particle_frames(t_game *game)
 		if (!game->particle_frames[i])
 		{
 			printf("Failed to load frame: %s\n", path[i]);
-			(clean_game(game), exit(1));
+			(free(path[i]), free(path), clean_game(game));
 		}
 		free(path[i]);
 		i++;

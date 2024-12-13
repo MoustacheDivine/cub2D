@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 02:35:28 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/13 21:02:40 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/13 23:15:35 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,17 @@ void	init_ray(t_game *game)
 void	load_tp_frames(t_game *game)
 {
 	game->tp_frames[0] = mlx_load_png("textures/animation/tp0.png");
-	game->tp_frames[1] = mlx_load_png("textures/animation/tp3.png");
-	game->tp_frames[2] = mlx_load_png("textures/animation/tp2.png");
-	game->tp_frames[3] = mlx_load_png("textures/animation/tp1.png");
-	if (!game->tp_frames[0] || !game->tp_frames[1] || !game->tp_frames[2]
-		|| !game->tp_frames[3])
-	{
+	if (!game->tp_frames[0])
 		clean_game(game);
-		exit(1);
-	}
+	game->tp_frames[1] = mlx_load_png("textures/animation/tp3.png");
+	if (!game->tp_frames[1])
+		clean_game(game);
+	game->tp_frames[2] = mlx_load_png("textures/animation/tp2.png");
+	if (!game->tp_frames[2])
+		clean_game(game);
+	game->tp_frames[3] = mlx_load_png("textures/animation/tp1.png");
+	if (!game->tp_frames[3])
+		clean_game(game);
 }
 
 t_game	*init_game(char *path)
@@ -105,16 +107,14 @@ t_game	*init_game(char *path)
 	game->player.y = -1;
 	init_colors(game);
 	parsing(path, game);
-	init_window(game);
 	init_player(game);
 	init_ray(game);
 	game->textures.door = mlx_load_png("textures/door.png");
 	if (!game->textures.door)
-	{
 		clean_game(game);
-		exit(1);
-	}
 	game->teleport = 0;
-	(load_particle_frames(game), load_tp_frames(game));
+	load_particle_frames(game);
+	load_tp_frames(game);
+	init_window(game);
 	return (game);
 }

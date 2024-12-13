@@ -3,36 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:48:53 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/13 21:34:30 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/13 23:08:30 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	check_colors(char **colors, char *tofree, char *tmp, t_game *game)
-{
-	int	i;
-
-	i = -1;
-	if (!colors || !colors[0] || !colors[1] || !colors[2] || colors[3])
-	{
-		printf("Error\nInvalid color\n");
-		if(colors)
-		{
-			while (colors[++i])
-				free(colors[i]);
-			free(colors);
-		}
-		free(tofree);
-		free(tmp);
-		free(game->line);
-		clean_game(game);
-		exit(1);
-	}
-}
 
 void	parse_color(char *line, t_game *game, char c, char *tofree)
 {
@@ -53,12 +31,8 @@ void	parse_color(char *line, t_game *game, char c, char *tofree)
 		printf("Error\nInvalid color\n");
 		while (colors[++i])
 			free(colors[i]);
-		free(colors);
-		free(tofree);
-		free(tmp);
-		free(game->line);
+		(free(colors), free(tofree), free(tmp), free(game->line));
 		clean_game(game);
-		exit(1);
 	}
 	while (colors[++i])
 		free(colors[i]);
@@ -89,19 +63,10 @@ void	parse_map_loop(int fd, t_game *game, char *line, char *file)
 	check_end(game, line, fd);
 }
 
-int	parsing(char *map, t_game *game)
+void	parse_file(t_game *game, char *map, int fd)
 {
 	char	*tmp;
-	int		fd;
 
-	fd = open(map, O_RDONLY);
-	if (fd < 0)
-	{
-		printf("Error\nInvalid file\n");
-		clean_game(game);
-		exit(1);
-	}
-	game->line = get_next_line(fd);
 	while (game->line)
 	{
 		tmp = ft_strdup(game->line);
@@ -109,9 +74,7 @@ int	parsing(char *map, t_game *game)
 		while (*tmp == ' ')
 			tmp++;
 		if (ft_strncmp(tmp, "1", 1) != 0 && ft_strncmp(tmp, "0", 1) != 0)
-		{
 			cmp_line(tmp, game);
-		}
 		else if (ft_strncmp(tmp, "1", 1) == 0 || ft_strncmp(tmp, "0", 1) == 0)
 		{
 			free(game->tmp2);
@@ -125,7 +88,23 @@ int	parsing(char *map, t_game *game)
 		game->tmp2 = NULL;
 		game->line = get_next_line(fd);
 	}
+}
+
+int	parsing(char *map, t_game *game)
+{
+	int	fd;
+
+	fd = open(map, O_RDONLY);
+	if (fd < 0)
+	{
+		printf("Error\nInvalid file\n");
+		clean_game(game);
+	}
+	game->line = get_next_line(fd);
+	parse_file(game, map, fd);
 	if (game->tmp2)
 		free(game->tmp2);
-	return (close(fd), check_all(game), 0);
+	close(fd);
+	check_all(game);
+	return (0);
 }

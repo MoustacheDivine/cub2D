@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 21:33:17 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/13 21:03:42 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:57:07 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	get_player_pos(t_game *game)
 				{
 					printf("Error\nMultiple player\n");
 					clean_game(game);
-					exit(1);
 				}
 				game->player.x = j;
 				game->player.y = i;
@@ -56,7 +55,6 @@ void	validate_map_chars(t_game *game)
 			{
 				printf("Error\nInvalid map\n");
 				clean_game(game);
-				exit(1);
 			}
 			j++;
 		}
@@ -72,7 +70,6 @@ void	validate_flood_fill(char **map, int x, int y, t_game *game)
 		printf("Error\nInvalid map\n");
 		free_map(map);
 		clean_game(game);
-		exit(1);
 	}
 	if (map[y][x] == '1' || map[y][x] == 'x')
 		return ;
@@ -81,7 +78,6 @@ void	validate_flood_fill(char **map, int x, int y, t_game *game)
 		printf("Error\nInvalid map\n");
 		free_map(map);
 		clean_game(game);
-		exit(1);
 	}
 	map[y][x] = 'x';
 	validate_flood_fill(map, x - 1, y, game);
