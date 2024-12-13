@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 05:43:40 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/12 15:05:59 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:18:28 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	draw_teleport_inactive(t_game *game)
 	if (!current_frame)
 		return ;
 	draw_texture(game, current_frame, game->img->width - current_frame->width,
-		0);
+		game->img->height - current_frame->height);
 }
 
 void	draw_teleport(t_game *game)
