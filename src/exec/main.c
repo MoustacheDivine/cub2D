@@ -6,60 +6,11 @@
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:59:47 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/13 20:10:33 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:05:57 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	clean_game(t_game *game)
-{
-	int	i;
-
-	i = 0;
-	if (game->img)
-		mlx_delete_image(game->mlx, game->img);
-	if (game->mlx)
-	{
-		mlx_close_window(game->mlx);
-		mlx_terminate(game->mlx);
-	}
-	if (game->map)
-		free_map(game->map);
-	if (game->textures.door)
-		mlx_delete_texture(game->textures.door);
-	if (game->textures.n)
-	{
-		mlx_delete_texture(game->textures.n);
-		if (game->textures.s)
-			mlx_delete_texture(game->textures.s);
-		if (game->textures.w)
-			mlx_delete_texture(game->textures.w);
-		if (game->textures.e)
-			mlx_delete_texture(game->textures.e);
-	}
-	if (game->particle_frames[0])
-	{
-		while (i < NUM_FRAMES)
-		{
-			mlx_delete_texture(game->particle_frames[i]);
-			i++;
-		}
-	}
-	if (game->tp_frames[0])
-	{
-		i = 0;
-		while (i < TP_FRAMES)
-		{
-			mlx_delete_texture(game->tp_frames[i]);
-			i++;
-		}
-	}
-	// if(game->tmp2)
-	// 	free(game->tmp2);
-	free(game);
-	exit(0);
-}
 
 void	key_hook(void *param)
 {
@@ -138,6 +89,7 @@ int	main(int ac, char **av)
 		ft_putstr_fd("Error\nInvalid number of arguments\n", 2);
 		return (1);
 	}
+	check_cub(av[1]);
 	game = init_game(av[1]);
 	render(game);
 	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_DISABLED);

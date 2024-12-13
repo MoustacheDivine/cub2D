@@ -6,22 +6,17 @@
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:48:53 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/13 20:26:45 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:13:23 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	parse_color(char *line, t_game *game, char c, char *tofree)
+void	check_colors(char **colors, char *tofree, char *tmp, t_game *game)
 {
-	char	**colors;
-	t_color	rgb;
-	char	*tmp;
-	int		i;
+	int	i;
 
 	i = -1;
-	tmp = clean_line(line, game);
-	colors = ft_split(tmp, ',');
 	if (!colors || !colors[0] || !colors[1] || !colors[2] || colors[3])
 	{
 		printf("Error\nInvalid color\n");
@@ -34,6 +29,19 @@ void	parse_color(char *line, t_game *game, char c, char *tofree)
 		clean_game(game);
 		exit(1);
 	}
+}
+
+void	parse_color(char *line, t_game *game, char c, char *tofree)
+{
+	char	**colors;
+	t_color	rgb;
+	char	*tmp;
+	int		i;
+
+	i = -1;
+	tmp = clean_line(line, game);
+	colors = ft_split(tmp, ',');
+	check_colors(colors, tofree, tmp, game);
 	rgb.r = ft_atoi_scam(colors[0]);
 	rgb.g = ft_atoi_scam(colors[1]);
 	rgb.b = ft_atoi_scam(colors[2]);
@@ -84,6 +92,12 @@ int	parsing(char *map, t_game *game)
 	int		fd;
 
 	fd = open(map, O_RDONLY);
+	if (fd < 0)
+	{
+		printf("Error\nInvalid file\n");
+		clean_game(game);
+		exit(1);
+	}
 	game->line = get_next_line(fd);
 	while (game->line)
 	{

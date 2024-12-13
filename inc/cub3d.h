@@ -6,7 +6,7 @@
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 17:04:52 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/13 20:32:06 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/13 20:50:45 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,17 +111,17 @@ typedef struct s_game
 	double			animation_time;
 	int				teleport;
 	t_draw			draw;
-	char		*tmp2;
-	char		*line;
-	char		*path;
+	char			*tmp2;
+	char			*line;
+	char			*path;
 	mlx_texture_t	*texturetmp;
 }					t_game;
 
 // init.c
 t_game				*init_game(char *path);
 
-//init2.c
-void	init_window(t_game *game);
+// init2.c
+void				init_window(t_game *game);
 
 // colors.c
 int					create_rgb(unsigned char r, unsigned char g,
@@ -182,6 +182,7 @@ void				validate_map_chars(t_game *game);
 char				**get_back_to_map(char *line, int fd, int count);
 int					isvalidchar(char c);
 int					ft_tablen(char **tab);
+void				check_cub(char *fichier);
 
 // check.c
 int					isvalidchar(char c);
@@ -207,7 +208,8 @@ void				teleport_player(t_game *game);
 void				load_particle_frames(t_game *game);
 void				start_particle_animation(t_game *game);
 void				draw_particle_animation(t_game *game);
-void	draw_texture(t_game *game, mlx_texture_t *src, int x, int y);
+void				draw_texture(t_game *game, mlx_texture_t *src, int x,
+						int y);
 
 // free.c
 void				free_positions(int **positions, int count);
@@ -217,4 +219,4 @@ int					count_available_positions(t_game *game);
 int					**find_available_positions(t_game *game, int count,
 						int map_y, int index);
 
-void	clean_game(t_game *game);
+void				clean_game(t_game *game);

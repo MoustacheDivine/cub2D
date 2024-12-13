@@ -6,7 +6,7 @@
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 18:51:07 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/13 20:32:46 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:00:06 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,40 +48,6 @@ int	get_map_len(char *line, int fd, char *file)
 	return (count);
 }
 
-void	load_texture(t_game *game, char *path, char c, char *line)
-{
-	game->texturetmp = mlx_load_png(path);
-	game->path = path;
-	if (!game->texturetmp)
-	{
-		printf("Error\nFailed to load texture\n");
-		free(path);
-		free(line);
-		clean_game(game);
-		exit(1);
-	}
-	if (c == 'N')
-	{
-		check_double(game, c, line);
-		game->textures.n = game->texturetmp;
-	}
-	else if (c == 'S')
-	{
-		check_double(game, c, line);
-		game->textures.s = game->texturetmp;
-	}
-	else if (c == 'W')
-	{
-		check_double(game, c, line);
-		game->textures.w = game->texturetmp;
-	}
-	else if (c == 'E')
-	{
-		check_double(game, c, line);
-		game->textures.e = game->texturetmp;
-	}
-}
-
 char	**cpy_map(t_game *game)
 {
 	int		i;
@@ -111,8 +77,7 @@ char	**get_back_to_map(char *line, int fd, int count)
 		tmp = ft_strtrim(line, " ");
 		if (ft_strncmp(tmp, "1", 1) == 0 || ft_strncmp(tmp, "0", 1) == 0)
 			break ;
-		free(tmp);
-		free(line);
+		(free(tmp), free(line));
 		line = get_next_line(fd);
 	}
 	while (count > 0 && line)

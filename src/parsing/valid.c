@@ -6,7 +6,7 @@
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 21:33:17 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/13 20:37:35 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:03:42 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	get_player_pos(t_game *game)
 	int			j;
 	static int	k = 0;
 
-	i = 0;
-	while (game->map[i])
+	i = -1;
+	while (game->map[++i])
 	{
 		j = 0;
 		while (game->map[i][j])
@@ -38,7 +38,6 @@ void	get_player_pos(t_game *game)
 			}
 			j++;
 		}
-		i++;
 	}
 }
 

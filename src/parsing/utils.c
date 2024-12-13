@@ -6,15 +6,38 @@
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 18:31:25 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/13 20:34:30 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/13 20:56:28 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void	check_cub(char *fichier)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	len = ft_strlen(fichier);
+	if (len < 4)
+	{
+		printf("Error\nInvalid file\n");
+		exit(1);
+	}
+	while (fichier[i])
+		i++;
+	if (fichier[i - 1] != 'b' || fichier[i - 2] != 'u' || fichier[i - 3] != 'c'
+		|| fichier[i - 4] != '.')
+	{
+		printf("Error\nInvalid file\n");
+		exit(1);
+	}
+}
+
 int	cmp_line(char *tmp, t_game *game)
 {
 	char	*tmp2;
+
 	tmp2 = tmp;
 	if (ft_strncmp(tmp, "NO ", 3) == 0)
 		parse_texture(tmp + 3, game, 'N');
@@ -33,8 +56,7 @@ int	cmp_line(char *tmp, t_game *game)
 	else
 	{
 		printf("Error\nInvalid line\n");
-		free(game->line);
-		free(game->tmp2);
+		(free(game->line), free(game->tmp2));
 		clean_game(game);
 		exit(1);
 	}
@@ -60,9 +82,9 @@ void	error_double(int i, t_game *game, char *line)
 	if (i == 1)
 	{
 		printf("Error\ndouble textures\n");
-		if(game->texturetmp)
+		if (game->texturetmp)
 			mlx_delete_texture(game->texturetmp);
-		if(game->path)
+		if (game->path)
 			free(game->path);
 		free(game->line);
 		free(game->tmp2);

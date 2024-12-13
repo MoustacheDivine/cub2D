@@ -6,7 +6,7 @@
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 02:35:28 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/13 20:32:24 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:02:40 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ t_game	*init_game(char *path)
 		exit(1);
 	}
 	game->teleport = 0;
-	load_particle_frames(game);
-	load_tp_frames(game);
+	(load_particle_frames(game), load_tp_frames(game));
 	return (game);
 }

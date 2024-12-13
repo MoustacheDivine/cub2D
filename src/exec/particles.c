@@ -6,7 +6,7 @@
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:04:34 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/13 18:55:38 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/13 20:57:14 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ void	load_particle_frames(t_game *game)
 		if (!game->particle_frames[i])
 		{
 			printf("Failed to load frame: %s\n", path[i]);
-			clean_game(game);
-			exit(1);
+			(clean_game(game), exit(1));
 		}
 		free(path[i]);
 		i++;
@@ -68,7 +67,8 @@ void	draw_texture(t_game *game, mlx_texture_t *src, int x, int y)
 				&& dr.new_y < (int)dest->height)
 			{
 				pixel = src->pixels + (dr.j * src->width + dr.i) * 4;
-				dr.color = (pixel[3] << 24) | (pixel[0]) | (pixel[1] << 16) | (pixel[2] << 8);
+				dr.color = (pixel[3] << 24) | (pixel[0])
+					| (pixel[1] << 16) | (pixel[2] << 8);
 				if ((dr.color >> 24) != 0)
 					mlx_put_pixel(dest, dr.new_x, dr.new_y, dr.color);
 			}
