@@ -6,7 +6,7 @@
 /*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:48:53 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/13 21:13:23 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:34:30 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,12 @@ void	check_colors(char **colors, char *tofree, char *tmp, t_game *game)
 	if (!colors || !colors[0] || !colors[1] || !colors[2] || colors[3])
 	{
 		printf("Error\nInvalid color\n");
-		while (colors[++i])
-			free(colors[i]);
-		free(colors);
+		if(colors)
+		{
+			while (colors[++i])
+				free(colors[i]);
+			free(colors);
+		}
 		free(tofree);
 		free(tmp);
 		free(game->line);

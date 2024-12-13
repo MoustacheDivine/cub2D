@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 11:45:24 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/10/14 20:09:50 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/13 21:32:23 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,19 @@ char	**ft_split(char const *s, char c)
 {
 	int		words;
 	char	**tab;
+	int count;
+	int i;
 
+	i = 0;
+	count = 0;
+	while(s[i])
+	{
+		if(s[i] == c)
+			count++;
+		i++;
+	}
+	if (count >= 3)
+		return (NULL);
 	words = count_words(s, c);
 	tab = malloc(sizeof(char *) * (words + 1));
 	if (!tab)
