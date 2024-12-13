@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:59:47 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/13 15:16:25 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/13 20:10:33 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,12 @@ void	clean_game(t_game *game)
 	if (game->textures.n)
 	{
 		mlx_delete_texture(game->textures.n);
-		mlx_delete_texture(game->textures.s);
-		mlx_delete_texture(game->textures.w);
-		mlx_delete_texture(game->textures.e);
+		if (game->textures.s)
+			mlx_delete_texture(game->textures.s);
+		if (game->textures.w)
+			mlx_delete_texture(game->textures.w);
+		if (game->textures.e)
+			mlx_delete_texture(game->textures.e);
 	}
 	if (game->particle_frames[0])
 	{
@@ -52,6 +55,8 @@ void	clean_game(t_game *game)
 			i++;
 		}
 	}
+	// if(game->tmp2)
+	// 	free(game->tmp2);
 	free(game);
 	exit(0);
 }

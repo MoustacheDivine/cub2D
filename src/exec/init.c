@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 02:35:28 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/13 15:18:15 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/13 20:32:24 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	init_colors(t_game *game)
 	game->textures.w = NULL;
 	game->textures.e = NULL;
 	game->textures.door = NULL;
+	game->texturetmp = NULL;
 	game->tp_frames[0] = NULL;
 	game->particle_frames[0] = NULL;
 }
@@ -97,6 +98,9 @@ t_game	*init_game(char *path)
 	game->map = NULL;
 	game->mlx = NULL;
 	game->img = NULL;
+	game->tmp2 = NULL;
+	game->line = NULL;
+	game->path = NULL;
 	game->player.x = -1;
 	game->player.y = -1;
 	init_colors(game);
@@ -111,7 +115,7 @@ t_game	*init_game(char *path)
 		exit(1);
 	}
 	game->teleport = 0;
-	load_tp_frames(game);
 	load_particle_frames(game);
+	load_tp_frames(game);
 	return (game);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 21:33:17 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/13 15:41:52 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/13 20:37:35 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	validate_flood_fill(char **map, int x, int y, t_game *game)
 	if (x < 0 || y < 0 || y >= (int)ft_tablen(map)
 		|| x >= (int)ft_strlen(map[y]))
 	{
-		printf("Error\nInvalid map 1\n");
+		printf("Error\nInvalid map\n");
 		free_map(map);
 		clean_game(game);
 		exit(1);
@@ -79,7 +79,7 @@ void	validate_flood_fill(char **map, int x, int y, t_game *game)
 		return ;
 	if (map[y][x] == ' ' || !isvalidchar(map[y][x]))
 	{
-		printf("Error\nInvalid map 2\n");
+		printf("Error\nInvalid map\n");
 		free_map(map);
 		clean_game(game);
 		exit(1);

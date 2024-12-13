@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 18:51:07 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/13 16:16:20 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/13 20:32:46 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,9 @@ int	get_map_len(char *line, int fd, char *file)
 
 void	load_texture(t_game *game, char *path, char c, char *line)
 {
-	void	*texture;
-
-	texture = mlx_load_png(path);
-	if (!texture)
+	game->texturetmp = mlx_load_png(path);
+	game->path = path;
+	if (!game->texturetmp)
 	{
 		printf("Error\nFailed to load texture\n");
 		free(path);
@@ -64,22 +63,22 @@ void	load_texture(t_game *game, char *path, char c, char *line)
 	if (c == 'N')
 	{
 		check_double(game, c, line);
-		game->textures.n = texture;
+		game->textures.n = game->texturetmp;
 	}
 	else if (c == 'S')
 	{
 		check_double(game, c, line);
-		game->textures.s = texture;
+		game->textures.s = game->texturetmp;
 	}
 	else if (c == 'W')
 	{
 		check_double(game, c, line);
-		game->textures.w = texture;
+		game->textures.w = game->texturetmp;
 	}
 	else if (c == 'E')
 	{
 		check_double(game, c, line);
-		game->textures.e = texture;
+		game->textures.e = game->texturetmp;
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 10:48:17 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/12 06:03:54 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/13 20:17:30 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ void	associate_color(t_game *game, char c, t_color rgb)
 {
 	if (c == 'F')
 	{
-		check_double(game, c);
+		check_double(game, c, NULL);
 		game->floor.r = rgb.r;
 		game->floor.g = rgb.g;
 		game->floor.b = rgb.b;
 	}
 	else if (c == 'C')
 	{
-		check_double(game, c);
+		check_double(game, c, NULL);
 		game->ceiling.r = rgb.r;
 		game->ceiling.g = rgb.g;
 		game->ceiling.b = rgb.b;

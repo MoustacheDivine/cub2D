@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 17:04:52 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/13 16:14:33 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/13 20:32:06 by tle-dref         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,10 @@ typedef struct s_game
 	double			animation_time;
 	int				teleport;
 	t_draw			draw;
+	char		*tmp2;
+	char		*line;
+	char		*path;
+	mlx_texture_t	*texturetmp;
 }					t_game;
 
 // init.c
@@ -156,7 +160,7 @@ void				calculate_ray_properties(t_game *game, int x);
 void				draw_wall_column(t_game *game, int x);
 
 // parsing
-void				parse_color(char *line, t_game *game, char c);
+void				parse_color(char *line, t_game *game, char c, char *tofree);
 void				parse_texture(char *line, t_game *game, char c);
 void				parse_map_loop(int fd, t_game *game, char *line,
 						char *file);
