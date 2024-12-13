@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 18:51:07 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/12 06:58:47 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:36:27 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ char	**get_back_to_map(char *line, int fd, int count)
 	map = malloc(sizeof(char *) * (count + 1));
 	while (line)
 	{
-		tmp = ft_strtrim(ft_strdup(line), " ");
+		tmp = ft_strtrim(line, " ");
 		if (ft_strncmp(tmp, "1", 1) == 0 || ft_strncmp(tmp, "0", 1) == 0)
 			break ;
 		free(tmp);

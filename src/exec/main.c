@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:59:47 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/12 15:13:05 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:32:41 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	clean_game(t_game *game)
 {
+	int	i;
+
+	i = 0;
 	if (game->img)
 		mlx_delete_image(game->mlx, game->img);
 	if (game->mlx)
@@ -21,6 +24,37 @@ void	clean_game(t_game *game)
 		mlx_close_window(game->mlx);
 		mlx_terminate(game->mlx);
 	}
+	if (game->map)
+		free_map(game->map);
+	if (game->textures.door)
+		mlx_delete_texture(game->textures.door);
+	if (game->textures.n)
+	{
+		mlx_delete_texture(game->textures.n);
+		mlx_delete_texture(game->textures.s);
+		mlx_delete_texture(game->textures.w);
+		mlx_delete_texture(game->textures.e);
+	}
+	if (game->tp)
+		mlx_delete_texture(game->tp);
+	if (game->particle_frames[0])
+	{
+		while (i < NUM_FRAMES)
+		{
+			mlx_delete_texture(game->particle_frames[i]);
+			i++;
+		}
+	}
+	if (game->tp_frames[0])
+	{
+		i = 0;
+		while (i < TP_FRAMES)
+		{
+			mlx_delete_texture(game->tp_frames[i]);
+			i++;
+		}
+	}
+	free(game);
 	exit(0);
 }
 
@@ -101,7 +135,6 @@ int	main(int ac, char **av)
 		ft_putstr_fd("Error\nInvalid number of arguments\n", 2);
 		return (1);
 	}
-	game = malloc(sizeof(t_game));
 	game = init_game(av[1]);
 	render(game);
 	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_DISABLED);

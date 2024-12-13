@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 02:35:28 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/12 15:14:41 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:38:43 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ t_game	*init_game(char *path)
 	t_game	*game;
 
 	game = malloc(sizeof(t_game));
+	game->map = NULL;
+	game->tp = NULL;
 	init_colors(game);
 	parsing(path, game);
 	init_window(game);

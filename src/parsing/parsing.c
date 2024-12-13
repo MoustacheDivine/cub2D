@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:48:53 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/12 06:54:46 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:36:44 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,12 @@ void	parse_color(char *line, t_game *game, char c)
 {
 	char	**colors;
 	t_color	rgb;
+	char	*tmp;
+	int		i;
 
-	colors = ft_split(clean_line(line), ',');
+	i = -1;
+	tmp = clean_line(line);
+	colors = ft_split(tmp, ',');
 	if (!colors || !colors[0] || !colors[1] || !colors[2] || colors[3])
 		(printf("Error\nInvalid color\n"), exit(1));
 	rgb.r = ft_atoi_scam(colors[0]);
@@ -25,6 +29,10 @@ void	parse_color(char *line, t_game *game, char c)
 	rgb.b = ft_atoi_scam(colors[2]);
 	if (rgb.r == ERROR_VALUE || rgb.g == ERROR_VALUE || rgb.b == ERROR_VALUE)
 		(printf("Error\nInvalid color\n"), exit(1));
+	while (colors[++i])
+		free(colors[i]);
+	free(colors);
+	free(tmp);
 	associate_color(game, c, rgb);
 }
 
@@ -54,13 +62,17 @@ int	parsing(char *map, t_game *game)
 {
 	char	*line;
 	char	*tmp;
+	char	*tmp2;
 	int		fd;
 
 	fd = open(map, O_RDONLY);
 	line = get_next_line(fd);
 	while (line)
 	{
-		tmp = ft_strtrim(line, " ");
+		tmp = ft_strdup(line);
+		tmp2 = tmp;
+		while (*tmp == ' ')
+			tmp++;
 		if (ft_strncmp(tmp, "1", 1) != 0 && ft_strncmp(tmp, "0", 1) != 0)
 			cmp_line(tmp, game);
 		else if (ft_strncmp(tmp, "1", 1) == 0 || ft_strncmp(tmp, "0", 1) == 0)
@@ -69,9 +81,11 @@ int	parsing(char *map, t_game *game)
 			break ;
 		}
 		free(line);
+		free(tmp2);
+		tmp2 = NULL;
 		line = get_next_line(fd);
 	}
-	close(fd);
-	check_all(game);
-	return (0);
+	if (tmp2)
+		free(tmp2);
+	return (close(fd), check_all(game), 0);
 }

@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 18:31:25 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/12 02:39:11 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:34:18 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,15 @@ int	cmp_line(char *tmp, t_game *game)
 
 char	*clean_line(char *line)
 {
-	char	*trimmed;
 	char	*cleaned;
 
-	cleaned = ft_strtrim(line, "\n");
-	trimmed = ft_strtrim(cleaned, " ");
-	free(cleaned);
-	return (trimmed);
+	if (line[0] == '\n')
+	{
+		printf("Error\nInvalid line\n");
+		exit(1);
+	}
+	cleaned = ft_strtrim(line, " \n");
+	return (cleaned);
 }
 
 void	error_double(int i)
