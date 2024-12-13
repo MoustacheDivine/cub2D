@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 18:51:07 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/13 14:48:20 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/13 16:16:20 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,13 @@ int	get_map_len(char *line, int fd, char *file)
 		free(line);
 		line = get_next_line(fd);
 	}
+	free(line);
 	close(fd);
 	open(file, O_RDONLY);
 	return (count);
 }
 
-void	load_texture(t_game *game, char *path, char c)
+void	load_texture(t_game *game, char *path, char c, char *line)
 {
 	void	*texture;
 
@@ -56,27 +57,28 @@ void	load_texture(t_game *game, char *path, char c)
 	{
 		printf("Error\nFailed to load texture\n");
 		free(path);
+		free(line);
 		clean_game(game);
 		exit(1);
 	}
 	if (c == 'N')
 	{
-		check_double(game, c);
+		check_double(game, c, line);
 		game->textures.n = texture;
 	}
 	else if (c == 'S')
 	{
-		check_double(game, c);
+		check_double(game, c, line);
 		game->textures.s = texture;
 	}
 	else if (c == 'W')
 	{
-		check_double(game, c);
+		check_double(game, c, line);
 		game->textures.w = texture;
 	}
 	else if (c == 'E')
 	{
-		check_double(game, c);
+		check_double(game, c, line);
 		game->textures.e = texture;
 	}
 }
@@ -121,6 +123,7 @@ char	**get_back_to_map(char *line, int fd, int count)
 		line = get_next_line(fd);
 		count--;
 	}
+	free(line);
 	map[i] = NULL;
 	free(tmp);
 	return (map);

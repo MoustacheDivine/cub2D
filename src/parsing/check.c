@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 02:27:50 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/13 15:03:39 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/13 16:15:51 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	check_all(t_game *game)
 			printf("Error\nNo player\n");
 			clean_game(game);
 		}
-		cpy = cpy_map(game);
 		validate_map_chars(game);
+		cpy = cpy_map(game);
 		validate_flood_fill(cpy, game->player.x, game->player.y, game);
 		get_map_dimension(game);
 		free_map(cpy);
@@ -38,20 +38,20 @@ void	check_all(t_game *game)
 	}
 }
 
-void	check_double(t_game *game, char c)
+void	check_double(t_game *game, char c, char *line)
 {
 	if (c == 'N' && game->textures.n)
-		error_double(1);
+		error_double(1, game, line);
 	else if (c == 'S' && game->textures.s)
-		error_double(1);
+		error_double(1, game, line);
 	else if (c == 'W' && game->textures.w)
-		error_double(1);
+		error_double(1, game, line);
 	else if (c == 'E' && game->textures.e)
-		error_double(1);
+		error_double(1, game, line);
 	else if (c == 'F' && game->floor.r >= 0)
-		error_double(2);
+		error_double(2, game, line);
 	else if (c == 'C' && game->ceiling.r >= 0)
-		error_double(2);
+		error_double(2, game, line);
 }
 
 int	isvalidchar(char c)
@@ -68,6 +68,7 @@ void	check_end(t_game *game, char *line, int fd)
 			&& line[0] != '\n')
 		{
 			printf("Error\nmap not at the end\n");
+			free(line);
 			clean_game(game);
 			exit(1);
 		}

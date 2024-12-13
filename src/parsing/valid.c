@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 21:33:17 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/13 14:59:39 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/13 15:41:52 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	validate_flood_fill(char **map, int x, int y, t_game *game)
 		|| x >= (int)ft_strlen(map[y]))
 	{
 		printf("Error\nInvalid map 1\n");
+		free_map(map);
 		clean_game(game);
 		exit(1);
 	}
@@ -79,6 +80,7 @@ void	validate_flood_fill(char **map, int x, int y, t_game *game)
 	if (map[y][x] == ' ' || !isvalidchar(map[y][x]))
 	{
 		printf("Error\nInvalid map 2\n");
+		free_map(map);
 		clean_game(game);
 		exit(1);
 	}
