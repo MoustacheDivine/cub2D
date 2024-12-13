@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 02:35:28 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/13 14:38:43 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/13 15:18:15 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ void	init_colors(t_game *game)
 	game->textures.s = NULL;
 	game->textures.w = NULL;
 	game->textures.e = NULL;
+	game->textures.door = NULL;
 	game->tp_frames[0] = NULL;
-	game->tp_frames[0] = NULL;
+	game->particle_frames[0] = NULL;
 }
 
 void	init_player(t_game *game)
@@ -83,8 +84,7 @@ void	load_tp_frames(t_game *game)
 	if (!game->tp_frames[0] || !game->tp_frames[1] || !game->tp_frames[2]
 		|| !game->tp_frames[3])
 	{
-		mlx_terminate(game->mlx);
-		free(game);
+		clean_game(game);
 		exit(1);
 	}
 }
@@ -95,7 +95,10 @@ t_game	*init_game(char *path)
 
 	game = malloc(sizeof(t_game));
 	game->map = NULL;
-	game->tp = NULL;
+	game->mlx = NULL;
+	game->img = NULL;
+	game->player.x = -1;
+	game->player.y = -1;
 	init_colors(game);
 	parsing(path, game);
 	init_window(game);
@@ -104,8 +107,7 @@ t_game	*init_game(char *path)
 	game->textures.door = mlx_load_png("textures/door.png");
 	if (!game->textures.door)
 	{
-		mlx_terminate(game->mlx);
-		free(game);
+		clean_game(game);
 		exit(1);
 	}
 	game->teleport = 0;

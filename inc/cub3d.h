@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 17:04:52 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/12 15:15:07 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/13 15:16:23 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ typedef struct s_ray
 	int				step_y;
 	double			sidedist_x;
 	double			sidedist_y;
-
 	double			deltadist_x;
 	double			deltadist_y;
 	double			wall_dist;
@@ -96,7 +95,6 @@ typedef struct s_draw
 typedef struct s_game
 {
 	mlx_t			*mlx;
-	// mlx_image_t		*minimap;
 	mlx_image_t		*img;
 	char			**map;
 	int				map_width;
@@ -113,7 +111,6 @@ typedef struct s_game
 	double			animation_time;
 	int				teleport;
 	t_draw			draw;
-	mlx_texture_t	*tp;
 }					t_game;
 
 // init.c
@@ -177,7 +174,7 @@ void				check_end(t_game *game, char *line, int fd);
 void				check_all_data(t_game *game);
 void				get_player_pos(t_game *game);
 char				**cpy_map(t_game *game);
-void				validate_flood_fill(char **map, int x, int y);
+void				validate_flood_fill(char **map, int x, int y, t_game *game);
 void				free_map(char **map);
 void				validate_map_chars(t_game *game);
 void				load_texture(t_game *game, char *path, char c);
@@ -219,4 +216,4 @@ int					count_available_positions(t_game *game);
 int					**find_available_positions(t_game *game, int count,
 						int map_y, int index);
 
-void display_map(char **map);
+void	clean_game(t_game *game);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 02:27:50 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/12 14:37:29 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/13 15:03:39 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,21 @@ void	check_all(t_game *game)
 	if (game->map)
 	{
 		get_player_pos(game);
+		if (game->player.x == -1 || game->player.y == -1)
+		{
+			printf("Error\nNo player\n");
+			clean_game(game);
+		}
 		cpy = cpy_map(game);
 		validate_map_chars(game);
-		validate_flood_fill(cpy, game->player.x, game->player.y);
+		validate_flood_fill(cpy, game->player.x, game->player.y, game);
 		get_map_dimension(game);
 		free_map(cpy);
 	}
 	else
 	{
 		printf("Error\nNo map\n");
-		exit(1);
+		clean_game(game);
 	}
 }
 
@@ -63,7 +68,7 @@ void	check_end(t_game *game, char *line, int fd)
 			&& line[0] != '\n')
 		{
 			printf("Error\nmap not at the end\n");
-			free_map(game->map);
+			clean_game(game);
 			exit(1);
 		}
 		free(line);
@@ -77,16 +82,19 @@ void	check_all_data(t_game *game)
 		|| !game->textures.e)
 	{
 		printf("Error\nMissing texture\n");
+		clean_game(game);
 		exit(1);
 	}
 	if (game->floor.r < 0 || game->floor.g < 0 || game->floor.b < 0)
 	{
 		printf("Error\nMissing floor color\n");
+		clean_game(game);
 		exit(1);
 	}
 	if (game->ceiling.r < 0 || game->ceiling.g < 0 || game->ceiling.b < 0)
 	{
 		printf("Error\nMissing ceiling color\n");
+		clean_game(game);
 		exit(1);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 18:51:07 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/13 14:36:27 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:48:20 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,12 @@ void	load_texture(t_game *game, char *path, char c)
 
 	texture = mlx_load_png(path);
 	if (!texture)
-		(printf("Error\nFailed to load texture\n"), free(path), exit(1));
+	{
+		printf("Error\nFailed to load texture\n");
+		free(path);
+		clean_game(game);
+		exit(1);
+	}
 	if (c == 'N')
 	{
 		check_double(game, c);

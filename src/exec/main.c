@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:59:47 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/13 14:32:41 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/13 15:16:25 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ void	clean_game(t_game *game)
 		mlx_delete_texture(game->textures.w);
 		mlx_delete_texture(game->textures.e);
 	}
-	if (game->tp)
-		mlx_delete_texture(game->tp);
 	if (game->particle_frames[0])
 	{
 		while (i < NUM_FRAMES)

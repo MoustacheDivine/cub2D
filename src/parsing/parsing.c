@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:48:53 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/13 14:36:44 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:49:23 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,20 @@ void	parse_color(char *line, t_game *game, char c)
 	tmp = clean_line(line);
 	colors = ft_split(tmp, ',');
 	if (!colors || !colors[0] || !colors[1] || !colors[2] || colors[3])
-		(printf("Error\nInvalid color\n"), exit(1));
+	{
+		printf("Error\nInvalid color\n");
+		clean_game(game);
+		exit(1);
+	}
 	rgb.r = ft_atoi_scam(colors[0]);
 	rgb.g = ft_atoi_scam(colors[1]);
 	rgb.b = ft_atoi_scam(colors[2]);
 	if (rgb.r == ERROR_VALUE || rgb.g == ERROR_VALUE || rgb.b == ERROR_VALUE)
-		(printf("Error\nInvalid color\n"), exit(1));
+	{
+		printf("Error\nInvalid color\n");
+		clean_game(game);
+		exit(1);
+	}
 	while (colors[++i])
 		free(colors[i]);
 	free(colors);

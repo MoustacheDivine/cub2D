@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:04:34 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/13 14:40:24 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:51:20 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	load_particle_frames(t_game *game)
 		if (!game->particle_frames[i])
 		{
 			printf("Failed to load frame: %s\n", path[i]);
-			exit(EXIT_FAILURE);
+			clean_game(game);
+			exit(1);
 		}
 		free(path[i]);
 		i++;
