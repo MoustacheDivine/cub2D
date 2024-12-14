@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 18:51:07 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/13 21:57:03 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/14 00:42:57 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	get_map_dimension(t_game *game)
 	game->map_height = i;
 }
 
-int	get_map_len(char *line, int fd, char *file)
+int	get_map_len(char *line, t_game *game, char *file)
 {
 	int	count;
 
@@ -40,11 +40,12 @@ int	get_map_len(char *line, int fd, char *file)
 	{
 		count++;
 		free(line);
-		line = get_next_line(fd);
+		line = get_next_line(game->fd);
 	}
 	free(line);
-	close(fd);
-	open(file, O_RDONLY);
+	close(game->fd);
+	game->fd = -1;
+	game->fd = open(file, O_RDONLY);
 	return (count);
 }
 
@@ -64,7 +65,7 @@ char	**cpy_map(t_game *game)
 	return (map);
 }
 
-char	**get_back_to_map(char *line, int fd, int count)
+char	**get_back_to_map(char *line, t_game *game, int count)
 {
 	char	*tmp;
 	char	**map;
@@ -78,13 +79,13 @@ char	**get_back_to_map(char *line, int fd, int count)
 		if (ft_strncmp(tmp, "1", 1) == 0 || ft_strncmp(tmp, "0", 1) == 0)
 			break ;
 		(free(tmp), free(line));
-		line = get_next_line(fd);
+		line = get_next_line(game->fd);
 	}
 	while (count > 0 && line)
 	{
 		map[i++] = ft_strdup(line);
 		free(line);
-		line = get_next_line(fd);
+		line = get_next_line(game->fd);
 		count--;
 	}
 	free(line);

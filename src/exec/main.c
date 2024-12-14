@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dref <tle-dref@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:59:47 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/13 21:05:57 by tle-dref         ###   ########.fr       */
+/*   Updated: 2024/12/14 03:56:39 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,9 @@ int	main(int ac, char **av)
 	render(game);
 	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_DISABLED);
 	mlx_set_mouse_pos(game->mlx, WIDTH / 2, HEIGHT / 2);
-	mlx_cursor_hook(game->mlx, &mouse_hook, game);
+	mlx_cursor_hook(game->mlx, mouse_hook, game);
 	mlx_key_hook(game->mlx, door_hook, game);
+	mlx_close_hook(game->mlx, cross_hook, (void *)game);
 	mlx_loop_hook(game->mlx, key_hook, game);
 	mlx_loop(game->mlx);
 	return (0);

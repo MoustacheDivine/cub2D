@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 17:04:52 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/13 23:09:01 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/14 02:52:57 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct s_game
 	char			**map;
 	int				map_width;
 	int				map_height;
+	int				fd;
 	double			last_time;
 	t_color			floor;
 	t_color			ceiling;
@@ -164,8 +165,7 @@ void				draw_wall_column(t_game *game, int x);
 // parsing
 void				parse_color(char *line, t_game *game, char c, char *tofree);
 void				parse_texture(char *line, t_game *game, char c);
-void				parse_map_loop(int fd, t_game *game, char *line,
-						char *file);
+void				parse_map_loop(t_game *game, char *line, char *file);
 int					parsing(char *map, t_game *game);
 
 // utils
@@ -173,7 +173,6 @@ void				error_double(int i, t_game *game, char *line);
 long				ft_atoi_scam(const char *str);
 int					cmp_line(char *tmp, t_game *game);
 char				*clean_line(char *line, t_game *game);
-int					get_map_len(char *line, int fd, char *file);
 void				check_end(t_game *game, char *line, int fd);
 void				check_all_data(t_game *game);
 void				get_player_pos(t_game *game);
@@ -181,7 +180,6 @@ char				**cpy_map(t_game *game);
 void				validate_flood_fill(char **map, int x, int y, t_game *game);
 void				free_map(char **map);
 void				validate_map_chars(t_game *game);
-char				**get_back_to_map(char *line, int fd, int count);
 int					isvalidchar(char c);
 int					ft_tablen(char **tab);
 void				check_cub(char *fichier);
@@ -196,9 +194,9 @@ void				check_end(t_game *game, char *line, int fd);
 // map.c
 char				**cpy_map(t_game *game);
 void				get_map_dimension(t_game *game);
-int					get_map_len(char *line, int fd, char *file);
+int					get_map_len(char *line, t_game *game, char *file);
 void				load_texture(t_game *game, char *path, char c, char *line);
-char				**get_back_to_map(char *line, int fd, int count);
+char				**get_back_to_map(char *line, t_game *game, int count);
 
 // minimap
 void				draw_minimap(t_game *game);
@@ -222,3 +220,4 @@ int					**find_available_positions(t_game *game, int count,
 						int map_y, int index);
 
 void				clean_game(t_game *game);
+void				cross_hook(void *param);

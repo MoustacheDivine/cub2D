@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 18:31:25 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/13 21:57:05 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/14 01:43:03 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,18 @@ void	check_cub(char *fichier)
 	i = 0;
 	len = ft_strlen(fichier);
 	if (len < 4)
+	{
 		printf("Error\nInvalid file\n");
+		exit(0);
+	}
 	while (fichier[i])
 		i++;
 	if (fichier[i - 1] != 'b' || fichier[i - 2] != 'u' || fichier[i - 3] != 'c'
 		|| fichier[i - 4] != '.')
+	{
 		printf("Error\nInvalid file\n");
+		exit(0);
+	}
 }
 
 int	cmp_line(char *tmp, t_game *game)
@@ -50,7 +56,8 @@ int	cmp_line(char *tmp, t_game *game)
 	else
 	{
 		printf("Error\nInvalid line\n");
-		(free(game->line), free(game->tmp2));
+		free(game->line);
+		free(game->tmp2);
 		clean_game(game);
 	}
 	return (0);
@@ -73,7 +80,7 @@ void	error_double(int i, t_game *game, char *line)
 {
 	if (i == 1)
 	{
-		printf("Error\ndouble textures\n");
+		printf("Error\nDouble textures\n");
 		if (game->texturetmp)
 			mlx_delete_texture(game->texturetmp);
 		if (game->path)
@@ -84,7 +91,7 @@ void	error_double(int i, t_game *game, char *line)
 	}
 	else if (i == 2)
 	{
-		printf("Error\ndouble colors\n");
+		printf("Error\nDouble colors\n");
 		free(line);
 		free(game->line);
 		free(game->tmp2);

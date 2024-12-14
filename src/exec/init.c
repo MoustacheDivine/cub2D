@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 02:35:28 by gbruscan          #+#    #+#             */
-/*   Updated: 2024/12/13 23:15:35 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/14 02:07:23 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,16 +80,28 @@ void	load_tp_frames(t_game *game)
 {
 	game->tp_frames[0] = mlx_load_png("textures/animation/tp0.png");
 	if (!game->tp_frames[0])
+	{
+		printf("Error\nFailed to load frame: textures/animation/tp0.png\n");
 		clean_game(game);
+	}
 	game->tp_frames[1] = mlx_load_png("textures/animation/tp3.png");
 	if (!game->tp_frames[1])
+	{
+		printf("Error\nFailed to load frame: textures/animation/tp3.png\n");
 		clean_game(game);
+	}
 	game->tp_frames[2] = mlx_load_png("textures/animation/tp2.png");
 	if (!game->tp_frames[2])
+	{
+		printf("Error\nFailed to load frame: textures/animation/tp2.png\n");
 		clean_game(game);
+	}
 	game->tp_frames[3] = mlx_load_png("textures/animation/tp1.png");
 	if (!game->tp_frames[3])
+	{
+		printf("Error\nFailed to load frame: textures/animation/tp1.png\n");
 		clean_game(game);
+	}
 }
 
 t_game	*init_game(char *path)
@@ -103,6 +115,7 @@ t_game	*init_game(char *path)
 	game->tmp2 = NULL;
 	game->line = NULL;
 	game->path = NULL;
+	game->fd = -1;
 	game->player.x = -1;
 	game->player.y = -1;
 	init_colors(game);

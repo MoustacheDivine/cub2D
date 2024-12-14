@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:04:34 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/13 23:05:57 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/14 02:11:03 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	load_particle_frames(t_game *game)
 		game->particle_frames[i] = mlx_load_png(path[i]);
 		if (!game->particle_frames[i])
 		{
-			printf("Failed to load frame: %s\n", path[i]);
+			printf("Error\nFailed to load frame: %s\n", path[i]);
 			(free(path[i]), free(path), clean_game(game));
 		}
 		free(path[i]);
@@ -87,13 +87,13 @@ void	draw_particle_animation(t_game *game)
 		teleport_player(game);
 	if (i < 0 || i >= NUM_FRAMES)
 	{
-		printf("Error: invalid frame index: %d\n", i);
+		printf("Error\nInvalid frame index: %d\n", i);
 		return ;
 	}
 	current_frame = game->particle_frames[i];
 	if (!current_frame)
 	{
-		printf("Error: current_frame is NULL (frame %d)\n", i);
+		printf("Error\nCurrent_frame is NULL (frame %d)\n", i);
 		return ;
 	}
 	draw_texture(game, current_frame, 0, 0);

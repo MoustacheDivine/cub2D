@@ -6,7 +6,7 @@
 /*   By: gbruscan <gbruscan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:48:53 by tle-dref          #+#    #+#             */
-/*   Updated: 2024/12/13 23:08:30 by gbruscan         ###   ########.fr       */
+/*   Updated: 2024/12/14 01:56:37 by gbruscan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,20 @@ void	parse_texture(char *line, t_game *game, char c)
 	free(path);
 }
 
-void	parse_map_loop(int fd, t_game *game, char *line, char *file)
+void	parse_map_loop(t_game *game, char *line, char *file)
 {
 	char	**map;
 	int		count;
 
-	count = get_map_len(line, fd, file);
-	line = get_next_line(fd);
-	map = get_back_to_map(line, fd, count);
-	line = get_next_line(fd);
+	count = get_map_len(line, game, file);
+	line = get_next_line(game->fd);
+	map = get_back_to_map(line, game, count);
+	line = get_next_line(game->fd);
 	game->map = map;
-	check_end(game, line, fd);
+	check_end(game, line, game->fd);
 }
 
-void	parse_file(t_game *game, char *map, int fd)
+void	parse_file(t_game *game, char *map)
 {
 	char	*tmp;
 
@@ -79,32 +79,31 @@ void	parse_file(t_game *game, char *map, int fd)
 		{
 			free(game->tmp2);
 			game->tmp2 = NULL;
-			parse_map_loop(fd, game, game->line, map);
+			parse_map_loop(game, game->line, map);
 			break ;
 		}
 		free(game->line);
 		if (game->tmp2)
 			free(game->tmp2);
 		game->tmp2 = NULL;
-		game->line = get_next_line(fd);
+		game->line = get_next_line(game->fd);
 	}
 }
 
 int	parsing(char *map, t_game *game)
 {
-	int	fd;
-
-	fd = open(map, O_RDONLY);
-	if (fd < 0)
+	game->fd = open(map, O_RDONLY);
+	if (game->fd < 0)
 	{
 		printf("Error\nInvalid file\n");
 		clean_game(game);
 	}
-	game->line = get_next_line(fd);
-	parse_file(game, map, fd);
+	game->line = get_next_line(game->fd);
+	parse_file(game, map);
 	if (game->tmp2)
 		free(game->tmp2);
-	close(fd);
+	close(game->fd);
+	game->fd = -1;
 	check_all(game);
 	return (0);
 }
